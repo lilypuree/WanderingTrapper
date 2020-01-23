@@ -1,0 +1,11 @@
+{
+  "parent": "item/generated",
+  "display": {
+    "fixed": {
+      "scale":[0.8,0.8,0.8]
+    }
+  },
+  "textures": {
+    "layer0": "wandering_trapper:item/marten_pelt"
+  }
+}

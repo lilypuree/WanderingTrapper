@@ -1,0 +1,11 @@
+{
+  "parent": "item/generated",
+  "display": {
+    "fixed": {
+      "scale": [1.4,1.4,1.4]
+    }
+  },
+  "textures": {
+    "layer0": "wandering_trapper:item/polarbear_pelt"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "parent": "item/generated",
+  "display": {
+    "fixed": {
+      "scale":[1.2,1.2,1.2]
+    }
+  },
+  "textures": {
+    "layer0": "wandering_trapper:item/snow_fox_pelt"
+  }
+}
