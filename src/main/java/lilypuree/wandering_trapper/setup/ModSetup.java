@@ -85,10 +85,25 @@ public class ModSetup {
             trades.add(new BasicTrade(new ItemStack(Items.EMERALD, 3), new ItemStack(Registration.BEAVER_PELT.get(), 3), new ItemStack(Items.LEATHER, 1), 16, 10, 0.05F));
             event.getTrades().put(1, trades);
         } else if (event.getType() == Registration.FURRIER.get()) {
-            ArrayList<VillagerTrades.ITrade> trades = new ArrayList<>();
-            trades.add(new BasicTrade(new ItemStack(Items.EMERALD, 3), new ItemStack(Registration.POLARBEAR_PELT.get(), 1), new ItemStack(Items.LEATHER, 5), 12, 10, 0.05F));
-            trades.add(new BasicTrade(new ItemStack(Items.EMERALD, 3), new ItemStack(Registration.BEAVER_PELT.get(), 3), new ItemStack(Items.LEATHER, 1), 16, 10, 0.05F));
-            event.getTrades().put(1, trades);
+            ArrayList<VillagerTrades.ITrade> noviceTrades = new ArrayList<>();
+            ArrayList<VillagerTrades.ITrade> apprenticeTrades = new ArrayList<>();
+            ArrayList<VillagerTrades.ITrade> journeymanTrades = new ArrayList<>();
+            ArrayList<VillagerTrades.ITrade> expertTrades = new ArrayList<>();
+            noviceTrades.add(new BasicTrade(new ItemStack(Items.EMERALD, 3), new ItemStack(Registration.POLARBEAR_PELT.get(), 1), new ItemStack(Items.LEATHER, 5), 12, 10, 0.05F));
+            noviceTrades.add(new BasicTrade(new ItemStack(Items.EMERALD, 3), new ItemStack(Registration.BEAVER_PELT.get(), 3), new ItemStack(Items.LEATHER, 1), 16, 10, 0.05F));
+
+            apprenticeTrades.add(new BasicTrade(new ItemStack(Registration.FOX_PELT.get(), 1), new ItemStack(Items.EMERALD, 5), 12,10, 0.05F));
+            apprenticeTrades.add(new BasicTrade(new ItemStack(Registration.MARTEN_PELT.get(), 1), new ItemStack(Items.EMERALD, 10), 12,10, 0.05F));
+
+            journeymanTrades.add(new BasicTrade(new ItemStack(Registration.SNOW_FOX_PELT.get(), 1), new ItemStack(Items.EMERALD, 10), 12,10, 0.05F));
+            journeymanTrades.add(new BasicTrade(new ItemStack(Registration.POLARBEAR_PELT.get(), 1), new ItemStack(Items.EMERALD, 10), 12,10, 0.05F));
+            journeymanTrades.add(new BasicTrade(new ItemStack(Registration.MINK_PELT.get(), 1), new ItemStack(Items.EMERALD, 10), 12,10, 0.05F));
+
+
+            event.getTrades().put(1, noviceTrades);
+            event.getTrades().put(2, apprenticeTrades);
+            event.getTrades().put(3, journeymanTrades);
+            event.getTrades().put(4, expertTrades);
         }
     }
 
