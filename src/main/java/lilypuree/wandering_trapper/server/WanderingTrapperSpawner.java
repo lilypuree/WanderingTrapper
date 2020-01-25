@@ -4,9 +4,7 @@ import lilypuree.wandering_trapper.entity.TrapperDogEntity;
 import lilypuree.wandering_trapper.entity.WanderingTrapperEntity;
 import lilypuree.wandering_trapper.setup.Registration;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.BlockPos;
@@ -55,7 +53,6 @@ public class WanderingTrapperSpawner {
             return false;
         } else {
             BlockPos blockpos = playerentity.getPosition();
-            System.out.println("tried");
             int i = 48;
             PointOfInterestManager pointofinterestmanager = this.world.getPointOfInterestManager();
             Optional<BlockPos> optional = pointofinterestmanager.func_219127_a(PointOfInterestType.MEETING.func_221045_c(), (p_221241_0_) -> {
@@ -70,7 +67,6 @@ public class WanderingTrapperSpawner {
 
                 WanderingTrapperEntity wanderingTrapperEntity = Registration.WANDERING_TRAPPER.get().spawn(this.world, (CompoundNBT) null, (ITextComponent)null, (PlayerEntity)null, blockpos2, SpawnReason.EVENT, false,false);
                 if(wanderingTrapperEntity != null){
-                    System.out.println("spawned trapper");
                     this.spawnDogs(wanderingTrapperEntity, 4);
                     this.world.getWorldInfo().setWanderingTraderId(wanderingTrapperEntity.getUniqueID());
                     wanderingTrapperEntity.setDespawnDelay(48000); // 48000

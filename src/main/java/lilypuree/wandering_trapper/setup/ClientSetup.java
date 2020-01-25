@@ -1,13 +1,10 @@
 package lilypuree.wandering_trapper.setup;
 
 import lilypuree.wandering_trapper.WanderingTrapper;
-import lilypuree.wandering_trapper.client.WanderingTrapperModel;
 import lilypuree.wandering_trapper.client.WanderingTrapperRenderer;
 import lilypuree.wandering_trapper.entity.WanderingTrapperEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
-import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;

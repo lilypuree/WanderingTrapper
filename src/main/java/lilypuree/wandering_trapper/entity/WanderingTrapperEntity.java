@@ -1,11 +1,13 @@
 package lilypuree.wandering_trapper.entity;
 
 import lilypuree.wandering_trapper.compat.IWeaponSelector;
-import lilypuree.wandering_trapper.entity.ai.*;
+import lilypuree.wandering_trapper.entity.ai.CustomMeleeAttackGoal;
+import lilypuree.wandering_trapper.entity.ai.CustomRangedAttackGoal;
+import lilypuree.wandering_trapper.entity.ai.NotInvisibleTargetGoal;
+import lilypuree.wandering_trapper.entity.ai.UseOffhandItemGoal;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.item.ExperienceOrbEntity;
-import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.merchant.villager.AbstractVillagerEntity;
 import net.minecraft.entity.merchant.villager.VillagerTrades;
 import net.minecraft.entity.monster.AbstractIllagerEntity;
@@ -19,23 +21,21 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
-import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.potion.Potions;
 import net.minecraft.stats.Stats;
-import net.minecraft.util.*;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.Hand;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.EnumSet;
-import java.util.HashSet;
 
 public class WanderingTrapperEntity extends AbstractVillagerEntity implements IRangedAttackMob{
 

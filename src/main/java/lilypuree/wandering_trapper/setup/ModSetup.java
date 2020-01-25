@@ -8,7 +8,6 @@ import lilypuree.wandering_trapper.capability.IHuntingExperience;
 import lilypuree.wandering_trapper.server.WanderingTrapperSpawner;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.merchant.villager.VillagerProfession;
 import net.minecraft.entity.merchant.villager.VillagerTrades;
 import net.minecraft.entity.passive.FoxEntity;
 import net.minecraft.entity.passive.PolarBearEntity;

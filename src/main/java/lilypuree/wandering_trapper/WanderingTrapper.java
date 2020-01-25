@@ -3,7 +3,6 @@ package lilypuree.wandering_trapper;
 
 import lilypuree.wandering_trapper.setup.*;
 import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.OptionalMod;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
