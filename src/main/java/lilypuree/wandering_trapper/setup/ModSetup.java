@@ -7,9 +7,7 @@ import lilypuree.wandering_trapper.capability.HuntingExperienceStorage;
 import lilypuree.wandering_trapper.capability.IHuntingExperience;
 import lilypuree.wandering_trapper.server.WanderingTrapperSpawner;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.merchant.villager.VillagerProfession;
 import net.minecraft.entity.merchant.villager.VillagerTrades;
 import net.minecraft.entity.passive.FoxEntity;
@@ -34,9 +32,7 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.server.FMLServerAboutToStartEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -51,13 +47,14 @@ public class ModSetup {
     @Nullable
     private static WanderingTrapperSpawner wanderingTrapperSpawner = null;
 
+
     public void init(FMLCommonSetupEvent e) {
         CapabilityManager.INSTANCE.register(IHuntingExperience.class, new HuntingExperienceStorage(), HuntingExperience::new);
     }
 
     @SubscribeEvent
     public static void onServerSetUp(FMLServerStartingEvent event) {
-        wanderingTrapperSpawner = new WanderingTrapperSpawner(event.getServer().getWorld(DimensionType.OVERWORLD));
+        wanderingTrapperSpawner = new WanderingTrapperSpawner(event.getServer().func_71218_a(DimensionType.OVERWORLD));
     }
 
     @SubscribeEvent
@@ -79,12 +76,7 @@ public class ModSetup {
 
     @SubscribeEvent
     public static void onSetVillagerTrades(VillagerTradesEvent event) {
-        if (event.getType() == VillagerProfession.LEATHERWORKER) {
-            ArrayList<VillagerTrades.ITrade> trades = new ArrayList<>();
-            trades.add(new BasicTrade(new ItemStack(Items.EMERALD, 3), new ItemStack(Registration.POLARBEAR_PELT.get(), 1), new ItemStack(Items.LEATHER, 5), 12, 10, 0.05F));
-            trades.add(new BasicTrade(new ItemStack(Items.EMERALD, 3), new ItemStack(Registration.BEAVER_PELT.get(), 3), new ItemStack(Items.LEATHER, 1), 16, 10, 0.05F));
-            event.getTrades().put(1, trades);
-        } else if (event.getType() == Registration.FURRIER.get()) {
+        if (event.getType() == Registration.FURRIER.get()) {
             ArrayList<VillagerTrades.ITrade> noviceTrades = new ArrayList<>();
             ArrayList<VillagerTrades.ITrade> apprenticeTrades = new ArrayList<>();
             ArrayList<VillagerTrades.ITrade> journeymanTrades = new ArrayList<>();
@@ -92,12 +84,15 @@ public class ModSetup {
             noviceTrades.add(new BasicTrade(new ItemStack(Items.EMERALD, 3), new ItemStack(Registration.POLARBEAR_PELT.get(), 1), new ItemStack(Items.LEATHER, 5), 12, 10, 0.05F));
             noviceTrades.add(new BasicTrade(new ItemStack(Items.EMERALD, 3), new ItemStack(Registration.BEAVER_PELT.get(), 3), new ItemStack(Items.LEATHER, 1), 16, 10, 0.05F));
 
-            apprenticeTrades.add(new BasicTrade(new ItemStack(Registration.FOX_PELT.get(), 1), new ItemStack(Items.EMERALD, 5), 12,10, 0.05F));
-            apprenticeTrades.add(new BasicTrade(new ItemStack(Registration.MARTEN_PELT.get(), 1), new ItemStack(Items.EMERALD, 10), 12,10, 0.05F));
+            apprenticeTrades.add(new BasicTrade(new ItemStack(Registration.BEAVER_PELT.get(), 10), new ItemStack(Items.EMERALD, 50), 5,10, 0.05F));
+            apprenticeTrades.add(new BasicTrade(new ItemStack(Registration.MARTEN_PELT.get(), 15), new ItemStack(Items.EMERALD, 56), 5,10, 0.05F));
 
-            journeymanTrades.add(new BasicTrade(new ItemStack(Registration.SNOW_FOX_PELT.get(), 1), new ItemStack(Items.EMERALD, 10), 12,10, 0.05F));
-            journeymanTrades.add(new BasicTrade(new ItemStack(Registration.POLARBEAR_PELT.get(), 1), new ItemStack(Items.EMERALD, 10), 12,10, 0.05F));
-            journeymanTrades.add(new BasicTrade(new ItemStack(Registration.MINK_PELT.get(), 1), new ItemStack(Items.EMERALD, 10), 12,10, 0.05F));
+            journeymanTrades.add(new BasicTrade(new ItemStack(Registration.FOX_PELT.get(), 6), new ItemStack(Items.EMERALD, 60), 5,10, 0.05F));
+            journeymanTrades.add(new BasicTrade(new ItemStack(Registration.SNOW_FOX_PELT.get(), 3), new ItemStack(Items.EMERALD, 64), 5,10, 0.05F));
+            journeymanTrades.add(new BasicTrade(new ItemStack(Registration.POLARBEAR_PELT.get(), 1), new ItemStack(Items.EMERALD, 32), 5,10, 0.05F));
+
+            expertTrades.add(new BasicTrade(new ItemStack(Registration.MINK_PELT.get(), 6), new ItemStack(Items.EMERALD, 64), 5,10, 0.05F));
+
 
 
             event.getTrades().put(1, noviceTrades);

@@ -1,4 +1,4 @@
-package lilypuree.wandering_trapper;
+package lilypuree.wandering_trapper.entity;
 
 import com.google.common.collect.ImmutableMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
@@ -20,17 +20,17 @@ import java.util.Random;
 public class TrapperTrades {
 
     public static final Int2ObjectMap<ITrade[]> trades = gatAsIntMap(ImmutableMap.of(1,new ITrade[]{
-         new ItemsForEmeraldsTrade(Registration.BEAVER_PELT.get(), 5, 8, 6,10),
-            new ItemsForEmeraldsTrade(Registration.FOX_PELT.get(), 7, 3, 3, 10),
-            new ItemsForEmeraldsTrade(Registration.SNOW_FOX_PELT.get(), 9, 3, 2, 10),
-            new ItemsForEmeraldsTrade(Registration.MARTEN_PELT.get(), 3, 5, 5, 10),
-            new ItemsForEmeraldsTrade(Registration.MINK_PELT.get(), 13, 5, 2, 10),
-            new ItemsForEmeraldsTrade(Registration.POLARBEAR_PELT.get(), 30, 1, 3, 10)
+         new ItemsForEmeraldsTrade(Registration.BEAVER_PELT.get(), 18, 6, 5,30),
+            new ItemsForEmeraldsTrade(Registration.FOX_PELT.get(), 18, 3, 3, 30),
+            new ItemsForEmeraldsTrade(Registration.SNOW_FOX_PELT.get(), 18, 2, 3, 30),
+            new ItemsForEmeraldsTrade(Registration.MARTEN_PELT.get(), 24, 10, 5, 30),
+            new ItemsForEmeraldsTrade(Registration.MINK_PELT.get(), 32, 6, 5, 30),
+            new ItemsForEmeraldsTrade(Registration.POLARBEAR_PELT.get(), 60, 3, 3, 30)
     }, 2, new ITrade[]{
-            new ItemsForItemsTrade(Items.CLOCK, 1, Registration.BEAVER_PELT.get(), 4, 3, 10),
-            new ItemsForItemsTrade(Items.CLOCK, 1, Registration.FOX_PELT.get(), 2, 3, 10),
-            new ItemsForItemsTrade(Items.LANTERN, 1, Registration.BEAVER_PELT.get(), 4, 3, 10),
-            new ItemsForItemsTrade(Items.LANTERN, 1, Registration.FOX_PELT.get(), 4, 3, 10),
+            new ItemsForItemsTrade(Items.CLOCK, 1, Registration.BEAVER_PELT.get(), 4, 3, 30),
+            new ItemsForItemsTrade(Items.CLOCK, 1, Registration.FOX_PELT.get(), 2, 3, 30),
+            new ItemsForItemsTrade(Items.LANTERN, 1, Registration.BEAVER_PELT.get(), 4, 3, 30),
+            new ItemsForItemsTrade(Items.LANTERN, 1, Registration.FOX_PELT.get(), 4, 3, 30),
             new ItemsForEmeraldsTrade(Items.RABBIT_FOOT, 1, 4, 5, 10),
     }));
 

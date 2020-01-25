@@ -1,7 +1,5 @@
 package lilypuree.wandering_trapper.item;
 
-import lilypuree.wandering_trapper.WanderingTrapper;
-import lilypuree.wandering_trapper.setup.ModSetup;
 import lilypuree.wandering_trapper.setup.Registration;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
