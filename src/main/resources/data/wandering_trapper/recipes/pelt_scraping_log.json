@@ -1,0 +1,14 @@
+{
+  "type": "crafting_shapeless",
+  "ingredients": [
+    {
+  "item" : "spruce_log"
+    },
+    {
+  "item" : "shears"
+    }
+  ],
+  "result": {
+    "item": "wandering_trapper:pelt_scraping_log"
+  }
+}
