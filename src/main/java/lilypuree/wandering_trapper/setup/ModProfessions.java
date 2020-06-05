@@ -5,6 +5,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.merchant.villager.VillagerProfession;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.village.PointOfInterestType;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 import javax.annotation.Nullable;
 import java.lang.reflect.Constructor;
@@ -20,13 +21,13 @@ public class ModProfessions {
 
     static{
         try{
-            poiConstructor = PointOfInterestType.class.getDeclaredConstructor(String.class, Set.class, int.class, int.class);
+            poiConstructor =  ObfuscationReflectionHelper.findConstructor(PointOfInterestType.class, String.class, Set.class, int.class, int.class);
             poiConstructor.setAccessible(true);
-            professionConstructor = VillagerProfession.class.getDeclaredConstructor(String.class, PointOfInterestType.class, ImmutableSet.class, ImmutableSet.class, SoundEvent.class);
+            professionConstructor = ObfuscationReflectionHelper.findConstructor(VillagerProfession.class, String.class, PointOfInterestType.class, ImmutableSet.class, ImmutableSet.class, SoundEvent.class);
             professionConstructor.setAccessible(true);
-            blockStatesInjector = PointOfInterestType.class.getDeclaredMethod("func_221052_a", PointOfInterestType.class);
+            blockStatesInjector = ObfuscationReflectionHelper.findMethod(PointOfInterestType.class,"func_221052_a",  PointOfInterestType.class);
             blockStatesInjector.setAccessible(true);
-        }catch(NoSuchMethodException | SecurityException e) {
+        }catch(SecurityException e) {
             e.printStackTrace();
         }
     }

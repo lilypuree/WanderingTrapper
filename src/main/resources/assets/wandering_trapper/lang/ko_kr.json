@@ -1,0 +1,11 @@
+{
+  "entity.wandering_trapper.wandering_trapper": "떠돌이 덫 사냥꾼",
+  "entity.wandering_trapper.trapper_dog": "떠돌이 덫 사냥꾼의 개",
+  "item.wandering_trapper.wandering_trapper_spawn_egg": "떠돌이 덫 사냥꾼 생성 알",
+  "item.wandering_trapper.beaver_pelt": "비버 털가죽",
+  "item.wandering_trapper.marten_pelt": "담비 털가죽",
+  "item.wandering_trapper.mink_pelt": "밍크 털가죽",
+  "item.wandering_trapper.fox_pelt": "여우 털가죽",
+  "item.wandering_trapper.snow_fox_pelt": "눈 여우 털가죽",
+  "item.wandering_trapper.polarbear_pelt": "북극곰 털가죽"
+}

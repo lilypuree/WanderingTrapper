@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "wandering_trapper:block/pelt_scraping_log" },
+    "facing=south": {  "model": "wandering_trapper:block/pelt_scraping_log" , "y": 180 },
+    "facing=west":  {  "model": "wandering_trapper:block/pelt_scraping_log" , "y": 270 },
+    "facing=east":  {  "model": "wandering_trapper:block/pelt_scraping_log" , "y": 90 }
+  }
+}

@@ -10,7 +10,7 @@ public class HuntingExperienceStorage implements Capability.IStorage<IHuntingExp
     @Nullable
     @Override
     public INBT writeNBT(Capability<IHuntingExperience> capability, IHuntingExperience instance, Direction side) {
-        return IntNBT.func_229692_a_(instance.getExperience());
+        return IntNBT.valueOf(instance.getExperience());
     }
 
     @Override

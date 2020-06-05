@@ -11,7 +11,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class HuntingExperienceProvider implements ICapabilitySerializable<INBT> {
+public class  HuntingExperienceProvider implements ICapabilitySerializable<INBT> {
 
     @CapabilityInject(IHuntingExperience.class)
     public static final Capability<IHuntingExperience> HUNTING_EXP_CAP = null;

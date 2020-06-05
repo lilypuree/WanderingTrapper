@@ -36,55 +36,57 @@ public class WanderingTrapperModel<T extends WanderingTrapperEntity> extends Ent
         this.textureHeight = textureHeight;
         this.body=(new ModelRenderer(this)).setTextureSize(textureWidth, textureHeight);
         this.body.setRotationPoint(0.0F, 0.0F,0.0F);
-        this.body.setTextureOffset(0,38).func_228301_a_(-4.0F, 0.0F, -3.0F,8.0F, 12.0F, 6.0F, scale);
+        this.body.setTextureOffset(0,38).addBox(-4.0F, 0.0F, -3.0F,8.0F, 12.0F, 6.0F, scale);
         this.coat=(new ModelRenderer(this)).setTextureSize(textureWidth, textureHeight);
         this.coat.setRotationPoint(0.0F, 0.0F, 0.0F);
-        this.coat.setTextureOffset(0,0).func_228301_a_(-4.0F,0.5F, -3.0F, 8.0F, 18.0F,6.0F, scale+0.7F);
+        this.coat.setTextureOffset(0,0).addBox(-4.0F,0.5F, -3.0F, 8.0F, 18.0F,6.0F, scale+0.7F);
         this.body.addChild(this.coat);
 
         this.head=(new ModelRenderer(this)).setTextureSize(textureWidth, textureHeight);
         this.head.setRotationPoint(0.0F, 0.0F, 0.0F);
-        this.head.setTextureOffset(20,20).func_228301_a_(-4.0F, -10.0F, -4.0F, 8.0F, 10.0F, 8.0F, scale);
+        this.head.setTextureOffset(20,20).addBox(-4.0F, -10.0F, -4.0F, 8.0F, 10.0F, 8.0F, scale);
         this.hat=(new ModelRenderer(this)).setTextureSize(textureWidth, textureHeight);
         this.hat.setRotationPoint(0.0F, 0.0F,0.0F);
-        this.hat.setTextureOffset(28,0).func_228301_a_(-4.0F, -10.0F, -4.0F, 8.0F, 10.0F, 8.0F, scale+0.5F);
+        this.hat.setTextureOffset(28,0).addBox(-4.0F, -10.0F, -4.0F, 8.0F, 10.0F, 8.0F, scale+0.5F);
         this.head.addChild(this.hat);
         this.nose=(new ModelRenderer(this)).setTextureSize(textureWidth, textureHeight);
         this.nose.setRotationPoint(0.0F, -2.0F, 0.0F);
-        this.nose.setTextureOffset(22,0).func_228301_a_(-1.0F, -1.0F, -6.0F,2.0F,4.0F,2.0F,scale);
+        this.nose.setTextureOffset(22,0).addBox(-1.0F, -1.0F, -6.0F,2.0F,4.0F,2.0F,scale);
         this.head.addChild(this.nose);
 
         this.handR=(new ModelRenderer(this,44,44)).setTextureSize(textureWidth, textureHeight);
-        this.handR.func_228301_a_(-3.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, scale);
+        this.handR.addBox(-3.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, scale);
         this.handR.setRotationPoint(-5.0F, 2.0F, 0.0F);
         this.handL=(new ModelRenderer(this,44,44)).setTextureSize(textureWidth, textureHeight);
         this.handL.mirror = true;
-        this.handL.func_228301_a_(-1.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, scale);
+        this.handL.addBox(-1.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, scale);
         this.handL.setRotationPoint(5.0F, 2.0F, 0.0F);
 
         this.legR = (new ModelRenderer(this,28,38)).setTextureSize(textureWidth, textureHeight);
         this.legR.setRotationPoint(-2.0F, 12.0F, 0.0F);
-        this.legR.func_228301_a_(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, scale);
+        this.legR.addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, scale);
         this.legL = (new ModelRenderer(this,28,38)).setTextureSize(textureWidth, textureHeight);
         this.legL.mirror = true;
         this.legL.setRotationPoint(2.0F, 12.0F, 0.0F);
-        this.legL.func_228301_a_(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, scale);
+        this.legL.addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, scale);
 
     }
 
 
     @Override
-    public void func_225598_a_(MatrixStack p_225598_1_, IVertexBuilder p_225598_2_, int p_225598_3_, int p_225598_4_, float p_225598_5_, float p_225598_6_, float p_225598_7_, float p_225598_8_) {
-        this.head.func_228309_a_(p_225598_1_, p_225598_2_, p_225598_3_, p_225598_4_, p_225598_5_, p_225598_6_, p_225598_7_, p_225598_8_);
-        this.body.func_228309_a_(p_225598_1_, p_225598_2_, p_225598_3_, p_225598_4_, p_225598_5_, p_225598_6_, p_225598_7_, p_225598_8_);
-        this.handR.func_228309_a_(p_225598_1_, p_225598_2_, p_225598_3_, p_225598_4_, p_225598_5_, p_225598_6_, p_225598_7_, p_225598_8_);
-        this.handL.func_228309_a_(p_225598_1_, p_225598_2_, p_225598_3_, p_225598_4_, p_225598_5_, p_225598_6_, p_225598_7_, p_225598_8_);
-        this.legL.func_228309_a_(p_225598_1_, p_225598_2_, p_225598_3_, p_225598_4_, p_225598_5_, p_225598_6_, p_225598_7_, p_225598_8_);
-        this.legR.func_228309_a_(p_225598_1_, p_225598_2_, p_225598_3_, p_225598_4_, p_225598_5_, p_225598_6_, p_225598_7_, p_225598_8_);
+    public void render(MatrixStack matrixStack, IVertexBuilder iVertexBuilder, int i, int i1, float v, float v1, float v2, float v3) {
+        this.head.render(matrixStack, iVertexBuilder, i, i1, v, v1, v2, v3);
+        this.body.render(matrixStack, iVertexBuilder, i, i1, v, v1, v2, v3);
+        this.handR.render(matrixStack, iVertexBuilder, i, i1, v, v1, v2, v3);
+        this.handL.render(matrixStack, iVertexBuilder, i, i1, v, v1, v2, v3);
+        this.legL.render(matrixStack, iVertexBuilder, i, i1, v, v1, v2, v3);
+        this.legR.render(matrixStack, iVertexBuilder, i, i1, v, v1, v2, v3);
+
     }
 
+
     @Override
-    public void func_225597_a_(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.head.rotateAngleY=(float)Math.toRadians(netHeadYaw);
         this.head.rotateAngleX=(float)Math.toRadians(headPitch);
         this.legR.rotateAngleX= MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount * 0.5F;
@@ -144,17 +146,18 @@ public class WanderingTrapperModel<T extends WanderingTrapperEntity> extends Ent
     }
 
     @Override
-    public ModelRenderer func_205072_a() {
+    public ModelRenderer getModelHead() {
         return this.head;
     }
+
 
     public ModelRenderer getArm(HandSide handSide){
         return handSide==HandSide.LEFT ? this.handL:this.handR;
     }
 
     @Override
-    public void func_225599_a_(HandSide side, MatrixStack scale) {
-        this.getArm(side).func_228307_a_(scale);
+    public void translateHand(HandSide handSide, MatrixStack matrixStack) {
+        this.getArm(handSide).translateRotate(matrixStack);
     }
 
     @Override

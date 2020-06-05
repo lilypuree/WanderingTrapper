@@ -1,0 +1,9 @@
+{
+  "parent": "block/orientable",
+  "textures": {
+    "top": "wandering_trapper:block/pelt_scraping_log",
+    "bottom": "block/spruce_log_top",
+    "front": "block/spruce_log",
+    "side": "block/spruce_log"
+  }
+}

@@ -1,6 +1,8 @@
 package lilypuree.wandering_trapper.entity;
 
-import lilypuree.wandering_trapper.TrapperTrades;
+import lilypuree.wandering_trapper.compat.IWeaponSelector;
+import lilypuree.wandering_trapper.entity.ai.CustomMeleeAttackGoal;
+import lilypuree.wandering_trapper.entity.ai.CustomRangedAttackGoal;
 import lilypuree.wandering_trapper.entity.ai.NotInvisibleTargetGoal;
 import lilypuree.wandering_trapper.entity.ai.UseOffhandItemGoal;
 import net.minecraft.entity.*;
@@ -11,7 +13,11 @@ import net.minecraft.entity.merchant.villager.VillagerTrades;
 import net.minecraft.entity.monster.AbstractIllagerEntity;
 import net.minecraft.entity.monster.VexEntity;
 import net.minecraft.entity.monster.ZombieEntity;
+import net.minecraft.entity.passive.FoxEntity;
+import net.minecraft.entity.passive.PolarBearEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.ProjectileHelper;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
@@ -31,11 +37,13 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 
-public class WanderingTrapperEntity extends AbstractVillagerEntity{
+public class WanderingTrapperEntity extends AbstractVillagerEntity implements IRangedAttackMob{
 
     @Nullable
     private BlockPos wanderTarget;
     private int despawnDelay;
+
+    public static IWeaponSelector weaponSelector;
 
     public WanderingTrapperEntity(EntityType<? extends WanderingTrapperEntity> type, World worldIn){
         super(type, worldIn);
@@ -48,23 +56,23 @@ public class WanderingTrapperEntity extends AbstractVillagerEntity{
         this.goalSelector.addGoal(0, new UseOffhandItemGoal<>(this, PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.STRONG_HEALING), SoundEvents.ENTITY_GENERIC_DRINK, (p_213733_1_) -> {
             return this.world.rand.nextFloat() < 0.0052F && this.getHealth() < this.getMaxHealth();
         }));
-//        this.goalSelector.addGoal(0, new UseOffhandItemGoal<>(this, PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.INVISIBILITY), SoundEvents.ENTITY_WANDERING_TRADER_DISAPPEARED, (p_213733_1_) -> {
-//            return !this.world.isDaytime() && !p_213733_1_.isInvisible();
-//        }));
-//        this.goalSelector.addGoal(0, new UseOffhandItemGoal<>(this, new ItemStack(Items.MILK_BUCKET), SoundEvents.ENTITY_WANDERING_TRADER_REAPPEARED, (p_213736_1_) -> {
-//            return this.world.isDaytime() && p_213736_1_.isInvisible();
-//        }));
         this.goalSelector.addGoal(1, new TradeWithPlayerGoal(this));
         this.goalSelector.addGoal(1, new LookAtCustomerGoal(this));
+        this.goalSelector.addGoal(2, new CustomMeleeAttackGoal(this, 0.5D, true, weaponSelector));
+        this.goalSelector.addGoal(2, new CustomRangedAttackGoal<>(this, weaponSelector));
         this.goalSelector.addGoal(2, new MoveToGoal(this, 2.5D, 0.4D));
         this.goalSelector.addGoal(4, new MoveTowardsRestrictionGoal(this, 0.55D));
         this.goalSelector.addGoal(8, new WaterAvoidingRandomWalkingGoal(this, 0.55D));
         this.goalSelector.addGoal(9, new LookAtWithoutMovingGoal(this, PlayerEntity.class, 3.0F, 1.0F));
         this.goalSelector.addGoal(10, new LookAtGoal(this, MobEntity.class, 8.0F));
-        this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
+        this.targetSelector.addGoal(1, new HurtByTargetGoal(this){
+
+        });
         this.targetSelector.addGoal(2, new NotInvisibleTargetGoal<>(this, AbstractIllagerEntity.class, true));
         this.targetSelector.addGoal(3, new NotInvisibleTargetGoal<>(this, VexEntity.class, true));
         this.targetSelector.addGoal(3, new NotInvisibleTargetGoal<>(this, ZombieEntity.class, true));
+        this.targetSelector.addGoal(3, new NotInvisibleTargetGoal<>(this, FoxEntity.class, true));
+        this.targetSelector.addGoal(3, new NotInvisibleTargetGoal<>(this, PolarBearEntity.class, true));
     }
 
     @Override
@@ -73,8 +81,12 @@ public class WanderingTrapperEntity extends AbstractVillagerEntity{
         this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.5D);
         this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(28.0D);
         this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(24.0D);
-        this.getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(1.0D);
-        this.getAttributes().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(2.0D);
+        this.getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(1.2D);
+        if(weaponSelector.isGun()){
+            this.getAttributes().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(0.1D);
+        }else {
+            this.getAttributes().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(2.0D);
+        }
     }
 
     @Nullable
@@ -120,9 +132,13 @@ public class WanderingTrapperEntity extends AbstractVillagerEntity{
         if (trades != null && trades1 != null) {
             MerchantOffers merchantoffers = this.getOffers();
             this.addTrades(merchantoffers, trades, 3);
-//            int i = this.rand.nextInt(trades1.length);
             this.addTrades(merchantoffers, trades1, 2);
         }
+    }
+
+    @Override
+    protected float getDropChance(EquipmentSlotType slotIn) {
+        return 0.3F;
     }
 
     @Override
@@ -196,10 +212,12 @@ public class WanderingTrapperEntity extends AbstractVillagerEntity{
 
     public void livingTick() {
         super.livingTick();
+        if(this.getRevengeTarget() != null){
+            this.setRevengeTarget(this.getRevengeTarget());
+        }
         if (!this.world.isRemote) {
             this.handleDespawn();
         }
-
     }
 
     public boolean canDespawn(double distanceToClosestPlayer) {
@@ -207,7 +225,21 @@ public class WanderingTrapperEntity extends AbstractVillagerEntity{
     }
 
     @Override
+    public void attackEntityWithRangedAttack(LivingEntity target, float distanceFactor) {
+        ItemStack ammo = this.findAmmo(this.getHeldItem(ProjectileHelper.getHandWith(this, weaponSelector.getWeapon())));
+        Entity projectileEntity = weaponSelector.getProjectile(this, distanceFactor);
+        double d0 = target.getPosX() - this.getPosX();
+        double d1 = target.getBoundingBox().minY + (double)(target.getHeight() / 3.0F) - projectileEntity.getPosY();
+        double d2 = target.getPosZ() - this.getPosZ();
+        projectileEntity = weaponSelector.shoot(projectileEntity, d0, d1, d2, this.world.getDifficulty().getId());
+        this.playSound(weaponSelector.getShootSound(), 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
+        this.world.addEntity(projectileEntity);
+    }
+
+
+    @Override
     public ILivingEntityData onInitialSpawn(IWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
+        this.setHeldItem(Hand.MAIN_HAND, new ItemStack(weaponSelector.getWeapon()));
         return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
@@ -215,7 +247,7 @@ public class WanderingTrapperEntity extends AbstractVillagerEntity{
     protected void onVillagerTrade(MerchantOffer offer) {
         if (offer.getDoesRewardExp()) {
             int i = 3 + this.rand.nextInt(4);
-            this.world.addEntity(new ExperienceOrbEntity(this.world, this.func_226277_ct_(), this.func_226278_cu_() + 0.5D, this.func_226281_cx_(), i));
+            this.world.addEntity(new ExperienceOrbEntity(this.world, this.getPosX(), this.getPosY() + 0.5D, this.getPosZ(), i));
         }
     }
 
@@ -259,8 +291,8 @@ public class WanderingTrapperEntity extends AbstractVillagerEntity{
             BlockPos blockpos = this.trapperEntity.getWanderTarget();
             if (blockpos != null && WanderingTrapperEntity.this.navigator.noPath()) {
                 if (this.isWithinDistance(blockpos, 10.0D)) {
-                    Vec3d vec3d = (new Vec3d((double)blockpos.getX() - this.trapperEntity.func_226277_ct_(), (double)blockpos.getY() - this.trapperEntity.func_226278_cu_(), (double)blockpos.getZ() - this.trapperEntity.func_226281_cx_())).normalize();
-                    Vec3d vec3d1 = vec3d.scale(10.0D).add(this.trapperEntity.func_226277_ct_(), this.trapperEntity.func_226278_cu_(), this.trapperEntity.func_226281_cx_());
+                    Vec3d vec3d = (new Vec3d((double)blockpos.getX() - this.trapperEntity.getPosX(), (double)blockpos.getY() - this.trapperEntity.getPosY(), (double)blockpos.getZ() - this.trapperEntity.getPosZ())).normalize();
+                    Vec3d vec3d1 = vec3d.scale(10.0D).add(this.trapperEntity.getPosX(), this.trapperEntity.getPosY(), this.trapperEntity.getPosZ());
                     WanderingTrapperEntity.this.navigator.tryMoveToXYZ(vec3d1.x, vec3d1.y, vec3d1.z, this.speed);
                 } else {
                     WanderingTrapperEntity.this.navigator.tryMoveToXYZ((double)blockpos.getX(), (double)blockpos.getY(), (double)blockpos.getZ(), this.speed);
