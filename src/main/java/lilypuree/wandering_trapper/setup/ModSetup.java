@@ -116,11 +116,14 @@ public class ModSetup {
     public static void onLivingDrop(LivingDropsEvent event) {
 
         LivingEntity entity = event.getEntityLiving();
+        Entity killer = event.getSource().getTrueSource();
         final Random random = new Random();
         final float baseDropChance = 0.001F;
 
+        if(!(killer instanceof PlayerEntity))return;
+
         if (entity instanceof PolarBearEntity) {
-            event.getSource().getTrueSource().getCapability(HUNTING_EXP_CAP).ifPresent(experience -> {
+            killer.getCapability(HUNTING_EXP_CAP).ifPresent(experience -> {
                 experience.add(5);
                 if (baseDropChance + MathHelper.clamp(experience.getExperience() * 0.001F, 0, 0.1) > random.nextFloat()) {
                     entity.entityDropItem(new ItemStack(Registration.POLARBEAR_PELT.get()));
@@ -128,7 +131,7 @@ public class ModSetup {
             });
         } else if (entity instanceof FoxEntity) {
             if (((FoxEntity) entity).getVariantType() == FoxEntity.Type.RED) {
-                event.getSource().getTrueSource().getCapability(HUNTING_EXP_CAP).ifPresent(experience -> {
+                killer.getCapability(HUNTING_EXP_CAP).ifPresent(experience -> {
                     experience.add(2);
 //                    System.out.println(experience.getExperience() + "fox");
                     if (baseDropChance + MathHelper.clamp(experience.getExperience() * 0.001F, 0, 0.1) > random.nextFloat()) {
@@ -136,7 +139,7 @@ public class ModSetup {
                     }
                 });
             } else {
-                event.getSource().getTrueSource().getCapability(HUNTING_EXP_CAP).ifPresent(experience -> {
+                killer.getCapability(HUNTING_EXP_CAP).ifPresent(experience -> {
                     experience.add(4);
                     if (baseDropChance + MathHelper.clamp(experience.getExperience() * 0.001F, 0, 0.1) > random.nextFloat()) {
                         entity.entityDropItem(new ItemStack(Registration.SNOW_FOX_PELT.get()));
