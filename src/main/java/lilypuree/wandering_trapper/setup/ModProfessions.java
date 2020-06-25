@@ -21,9 +21,9 @@ public class ModProfessions {
 
     static {
         try {
-            poiConstructor = ObfuscationReflectionHelper.findConstructor(PointOfInterestType.class, String.class, Set.class, int.class, int.class);
+            poiConstructor = ObfuscationReflectionHelper.findConstructor(PointOfInterestType.class, String.class, Set.class, int.class, SoundEvent.class, int.class);
             poiConstructor.setAccessible(true);
-            professionConstructor = ObfuscationReflectionHelper.findConstructor(VillagerProfession.class, String.class, PointOfInterestType.class, ImmutableSet.class, ImmutableSet.class, SoundEvent.class);
+            professionConstructor = ObfuscationReflectionHelper.findConstructor(VillagerProfession.class, String.class, PointOfInterestType.class, ImmutableSet.class, ImmutableSet.class);
             professionConstructor.setAccessible(true);
             blockStatesInjector = ObfuscationReflectionHelper.findMethod(PointOfInterestType.class, "func_221052_a", PointOfInterestType.class);
             blockStatesInjector.setAccessible(true);
@@ -34,7 +34,7 @@ public class ModProfessions {
 
     public static PointOfInterestType pointOfInterestType(String resourceLocation, Set<BlockState> blockStates, int maxFreeTickets, int p_i225712_4_) {
         try {
-            PointOfInterestType poi = (PointOfInterestType) poiConstructor.newInstance(resourceLocation, blockStates, maxFreeTickets, p_i225712_4_);
+            PointOfInterestType poi = (PointOfInterestType) poiConstructor.newInstance(resourceLocation, blockStates, maxFreeTickets, null, p_i225712_4_);
             blockStatesInjector.invoke(null, poi);
             return poi;
         } catch (IllegalAccessException | InvocationTargetException | InstantiationException e) {
@@ -46,7 +46,7 @@ public class ModProfessions {
     public static VillagerProfession villagerProfession(String resourceLocation, PointOfInterestType type, @Nullable SoundEvent soundEvent) {
 
         try {
-            return (VillagerProfession) professionConstructor.newInstance(resourceLocation, type, ImmutableSet.of(), ImmutableSet.of(), soundEvent);
+            return (VillagerProfession) professionConstructor.newInstance(resourceLocation, type, ImmutableSet.of(), ImmutableSet.of());
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
