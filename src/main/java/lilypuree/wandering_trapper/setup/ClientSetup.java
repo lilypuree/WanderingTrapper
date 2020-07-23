@@ -2,6 +2,8 @@ package lilypuree.wandering_trapper.setup;
 
 import lilypuree.wandering_trapper.WanderingTrapper;
 import lilypuree.wandering_trapper.client.WanderingTrapperRenderer;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.entity.WolfRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
@@ -16,6 +18,7 @@ public class ClientSetup {
     public static void init(final FMLClientSetupEvent event){
         RenderingRegistry.registerEntityRenderingHandler(Registration.WANDERING_TRAPPER.get(), WanderingTrapperRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(Registration.TRAPPER_DOG.get(), WolfRenderer::new);
+        RenderTypeLookup.setRenderLayer(Registration.PELT_SCRAPING_LOG.get(), RenderType.getTranslucent());
     }
 
 
