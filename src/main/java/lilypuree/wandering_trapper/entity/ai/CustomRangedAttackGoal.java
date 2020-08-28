@@ -48,6 +48,7 @@ public class CustomRangedAttackGoal<T extends MobEntity & IRangedAttackMob> exte
     @Override
     public void startExecuting() {
         super.startExecuting();
+
         this.entity.setAggroed(true);
     }
 
@@ -70,14 +71,14 @@ public class CustomRangedAttackGoal<T extends MobEntity & IRangedAttackMob> exte
         LivingEntity livingentity = this.entity.getAttackTarget();
         if (livingentity != null) {
             double d0 = this.entity.getDistanceSq(livingentity.getPosX(), livingentity.getBoundingBox().minY, livingentity.getPosZ());
-            boolean flag = this.entity.getEntitySenses().canSee(livingentity);
-            boolean flag1 = this.seeTime > 0;
+            boolean canSeeEntity = this.entity.getEntitySenses().canSee(livingentity);
+            boolean seeing = this.seeTime > 0;
             boolean isGun = this.weaponSelector.isGun();
-            if (flag != flag1) {
+            if (canSeeEntity != seeing) {
                 this.seeTime = 0;
             }
 
-            if (flag) {
+            if (canSeeEntity) {
                 ++this.seeTime;
             } else {
                 --this.seeTime;
@@ -117,9 +118,9 @@ public class CustomRangedAttackGoal<T extends MobEntity & IRangedAttackMob> exte
             }
 
             if (this.entity.isHandActive()) {
-                if (!flag && this.seeTime < -60) {
+                if (!canSeeEntity && this.seeTime < -60) {
                     this.entity.resetActiveHand();
-                } else if (flag) {
+                } else if (canSeeEntity) {
                     int i = this.entity.getItemInUseMaxCount();
                     if (i >= weaponSelector.getWeaponLoadTime()) {
                         this.entity.resetActiveHand();
@@ -128,6 +129,7 @@ public class CustomRangedAttackGoal<T extends MobEntity & IRangedAttackMob> exte
                     }
                 }
             } else if (--this.attackTime <= 0 && this.seeTime >= -60) {
+                this.entity.setActiveHand(ProjectileHelper.getHandWith(this.entity, weaponSelector.getWeapon()));
                 this.entity.setActiveHand(ProjectileHelper.getHandWith(this.entity, weaponSelector.getWeapon()));
             }
         }

@@ -33,6 +33,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.Constants;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -153,7 +154,7 @@ public class WanderingTrapperEntity extends AbstractVillagerEntity implements IR
     @Override
     public void readAdditional(CompoundNBT compound) {
         super.readAdditional(compound);
-        if (compound.contains("DespawnDelay", 99)) {
+        if (compound.contains("DespawnDelay", Constants.NBT.TAG_INT)) {
             this.despawnDelay = compound.getInt("DespawnDelay");
         }
 
@@ -226,10 +227,10 @@ public class WanderingTrapperEntity extends AbstractVillagerEntity implements IR
 
     @Override
     public void attackEntityWithRangedAttack(LivingEntity target, float distanceFactor) {
-        ItemStack ammo = this.findAmmo(this.getHeldItem(ProjectileHelper.getHandWith(this, weaponSelector.getWeapon())));
+//        ItemStack ammo = this.findAmmo(this.getHeldItem(ProjectileHelper.getHandWith(this, weaponSelector.getWeapon())));
         Entity projectileEntity = weaponSelector.getProjectile(this, distanceFactor);
         double d0 = target.getPosX() - this.getPosX();
-        double d1 = target.getBoundingBox().minY + (double)(target.getHeight() / 3.0F) - projectileEntity.getPosY();
+        double d1 = target.getBoundingBox().minY + (double)(target.getHeight() * 0.7f) - projectileEntity.getPosY();
         double d2 = target.getPosZ() - this.getPosZ();
         projectileEntity = weaponSelector.shoot(projectileEntity, d0, d1, d2, this.world.getDifficulty().getId());
         this.playSound(weaponSelector.getShootSound(), 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
@@ -250,8 +251,6 @@ public class WanderingTrapperEntity extends AbstractVillagerEntity implements IR
             this.world.addEntity(new ExperienceOrbEntity(this.world, this.getPosX(), this.getPosY() + 0.5D, this.getPosZ(), i));
         }
     }
-
-
 
 
 

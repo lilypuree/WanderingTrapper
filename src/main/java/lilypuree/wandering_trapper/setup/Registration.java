@@ -3,6 +3,7 @@ package lilypuree.wandering_trapper.setup;
 import com.google.common.collect.ImmutableSet;
 import lilypuree.wandering_trapper.block.PeltScrapingLogBlock;
 import lilypuree.wandering_trapper.compat.BowWeapon;
+import lilypuree.wandering_trapper.compat.MusketWeapon;
 import lilypuree.wandering_trapper.entity.TrapperDogEntity;
 import lilypuree.wandering_trapper.entity.WanderingTrapperEntity;
 import lilypuree.wandering_trapper.item.PeltItem;
@@ -32,15 +33,14 @@ import static lilypuree.wandering_trapper.WanderingTrapper.MODID;
 
 public class Registration {
 
-    public static final DeferredRegister<Item> ITEMS = new DeferredRegister<>(ForgeRegistries.ITEMS,MODID );
+    public static final DeferredRegister<Item> ITEMS = new DeferredRegister<>(ForgeRegistries.ITEMS, MODID);
     public static final DeferredRegister<Block> BLOCKS = new DeferredRegister<>(ForgeRegistries.BLOCKS, MODID);
     public static final DeferredRegister<EntityType<?>> ENTITIES = new DeferredRegister<>(ForgeRegistries.ENTITIES, MODID);
-    public static final DeferredRegister<VillagerProfession> PROFESSIONS =  new DeferredRegister<>(ForgeRegistries.PROFESSIONS, MODID);
-    public static final DeferredRegister<PointOfInterestType> POIS =  new DeferredRegister<>(ForgeRegistries.POI_TYPES, MODID);
+    public static final DeferredRegister<VillagerProfession> PROFESSIONS = new DeferredRegister<>(ForgeRegistries.PROFESSIONS, MODID);
+    public static final DeferredRegister<PointOfInterestType> POIS = new DeferredRegister<>(ForgeRegistries.POI_TYPES, MODID);
 
 
-
-    public static void register(){
+    public static void register() {
         BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
         ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
         ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
@@ -48,9 +48,10 @@ public class Registration {
         POIS.register(FMLJavaModLoadingContext.get().getModEventBus());
 
     }
-    public static final RegistryObject<Block> PELT_SCRAPING_LOG = BLOCKS.register("pelt_scraping_log", ()->new PeltScrapingLogBlock(Block.Properties.create(Material.WOOD).hardnessAndResistance(2.0F).sound(SoundType.WOOD)) {
+
+    public static final RegistryObject<Block> PELT_SCRAPING_LOG = BLOCKS.register("pelt_scraping_log", () -> new PeltScrapingLogBlock(Block.Properties.create(Material.WOOD).hardnessAndResistance(2.0F).sound(SoundType.WOOD)) {
     });
-    public static final RegistryObject<Item> PELT_SCRAPING_LOG_ITEM = ITEMS.register("pelt_scraping_log", ()->new BlockItem(PELT_SCRAPING_LOG.get(), new Item.Properties().group(ItemGroup.DECORATIONS)));
+    public static final RegistryObject<Item> PELT_SCRAPING_LOG_ITEM = ITEMS.register("pelt_scraping_log", () -> new BlockItem(PELT_SCRAPING_LOG.get(), new Item.Properties().group(ItemGroup.DECORATIONS)));
 
 
     public static final RegistryObject<PeltItem> BEAVER_PELT = ITEMS.register("beaver_pelt", PeltItem::new);
@@ -61,13 +62,13 @@ public class Registration {
     public static final RegistryObject<PeltItem> POLARBEAR_PELT = ITEMS.register("polarbear_pelt", PeltItem::new);
     public static final RegistryObject<WanderingTrapperSpawnEgg> WANDERING_TRADER_SPAWN_EGG = ITEMS.register("wandering_trapper_spawn_egg", WanderingTrapperSpawnEgg::new);
 
-    public static final RegistryObject<PointOfInterestType> FURRIER_POI = POIS.register("furrier", ()->ModProfessions.pointOfInterestType("furrier", getAllStates(PELT_SCRAPING_LOG.get()), 1, 1));
+    public static final RegistryObject<PointOfInterestType> FURRIER_POI = POIS.register("furrier", () -> ModProfessions.pointOfInterestType("furrier", getAllStates(PELT_SCRAPING_LOG.get()), 1, 1));
 
-    public static final RegistryObject<VillagerProfession> FURRIER = PROFESSIONS.register("furrier", ()->new ModProfessions().villagerProfession("furrier", FURRIER_POI.get(), SoundEvents.ENTITY_VILLAGER_WORK_LEATHERWORKER));
+    public static final RegistryObject<VillagerProfession> FURRIER = PROFESSIONS.register("furrier", () -> new ModProfessions().villagerProfession("furrier", FURRIER_POI.get(), SoundEvents.ENTITY_VILLAGER_WORK_LEATHERWORKER));
 
     public static final RegistryObject<EntityType<WanderingTrapperEntity>> WANDERING_TRAPPER = ENTITIES.register("wandering_trapper", () -> EntityType.Builder.<WanderingTrapperEntity>create((type, world) -> {
         if (ModList.get().isLoaded("musketmod")) {
-//            WanderingTrapperEntity.weaponSelector = new MusketWeapon();
+            WanderingTrapperEntity.weaponSelector = new MusketWeapon();
             return new WanderingTrapperEntity(type, world);
         } else {
             WanderingTrapperEntity.weaponSelector = new BowWeapon();

@@ -36,8 +36,6 @@ import javax.annotation.Nullable;
 public class WanderingTrapper {
     public static final String MODID = "wandering_trapper";
 
-    public static IProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
-
     public static ModSetup setup = new ModSetup();
     public static WanderingTrapper instance;
 

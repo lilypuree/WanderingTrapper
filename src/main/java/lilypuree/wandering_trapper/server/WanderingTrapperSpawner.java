@@ -30,15 +30,15 @@ public class WanderingTrapperSpawner {
 
     public WanderingTrapperSpawner(ServerWorld world) {
         this.world = world;
-        this.field_221248_c = 12000; //12000
+        this.field_221248_c = 400; //12000
     }
 
     public void tick() {
         if (world.isDaytime() && world.getDimension() instanceof OverworldDimension) {
             if (--this.field_221248_c <= 0) {
-                this.field_221248_c = 12000; //12000
+                this.field_221248_c = 400; //12000
                 if (this.func_221245_b()) {
-                    this.field_221248_c = 24000; //24000
+                    this.field_221248_c = 800; //24000
                 }
             }
         }
@@ -68,7 +68,7 @@ public class WanderingTrapperSpawner {
                 if (wanderingTrapperEntity != null) {
                     this.spawnDogs(wanderingTrapperEntity, 4);
                     this.world.getWorldInfo().setWanderingTraderId(wanderingTrapperEntity.getUniqueID());
-                    wanderingTrapperEntity.setDespawnDelay(48000); //48000
+                    wanderingTrapperEntity.setDespawnDelay(800); //48000
                     wanderingTrapperEntity.setWanderTarget(blockpos1);
                     wanderingTrapperEntity.setHomePosAndDistance(blockpos1, 16);
                     return true;
@@ -79,8 +79,8 @@ public class WanderingTrapperSpawner {
         }
     }
 
-    private void spawnDogs(WanderingTrapperEntity trapper, int p_221243_2_) {
-        BlockPos blockpos = this.func_221244_a(new BlockPos(trapper), p_221243_2_);
+    private void spawnDogs(WanderingTrapperEntity trapper, int radius) {
+        BlockPos blockpos = this.func_221244_a(new BlockPos(trapper), radius);
         if (blockpos != null) {
             TrapperDogEntity trapperDogEntity = Registration.TRAPPER_DOG.get().spawn(this.world, (CompoundNBT) null, (ITextComponent) null, (PlayerEntity) null, blockpos, SpawnReason.EVENT, false, false);
             if (trapperDogEntity != null) {
@@ -93,12 +93,12 @@ public class WanderingTrapperSpawner {
 
 
     @Nullable
-    private BlockPos func_221244_a(BlockPos p_221244_1_, int p_221244_2_) {
+    private BlockPos func_221244_a(BlockPos pos, int radius) {
         BlockPos blockpos = null;
 
         for (int i = 0; i < 10; ++i) {
-            int j = p_221244_1_.getX() + this.random.nextInt(p_221244_2_ * 2) - p_221244_2_;
-            int k = p_221244_1_.getZ() + this.random.nextInt(p_221244_2_ * 2) - p_221244_2_;
+            int j = pos.getX() + this.random.nextInt(radius * 2) - radius;
+            int k = pos.getZ() + this.random.nextInt(radius * 2) - radius;
             int l = this.world.getHeight(Heightmap.Type.WORLD_SURFACE, j, k);
             BlockPos blockpos1 = new BlockPos(j, l, k);
             if (WorldEntitySpawner.canCreatureTypeSpawnAtLocation(EntitySpawnPlacementRegistry.PlacementType.NO_RESTRICTIONS, this.world, blockpos1, Registration.WANDERING_TRAPPER.get())) {
