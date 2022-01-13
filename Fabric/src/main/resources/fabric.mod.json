@@ -1,0 +1,40 @@
+{
+    "schemaVersion": 1,
+    "id": "wandering_trapper",
+    "version": "${version}",
+  
+    "name": "Wandering Trapper",
+    "description": "A Wandering Trapper spawns in cold biomes",
+    "authors": [
+      "Lilypuree"
+    ],
+    "contact": {
+      "sources": "https://github.com/lilypuree/WanderingTrapper"
+    },
+  
+    "license": "MIT",
+
+    "environment": "*",
+    "entrypoints": {
+      "main": [
+        "lilypuree.wandering_trapper.WanderingTrapperFabric"
+      ],
+      "client" : [
+        "lilypuree.wandering_trapper.ClientSetupFabric"
+      ]
+    },
+    "mixins": [
+      "wandering_trapper.mixins.json"
+    ],
+  
+    "depends": {
+      "fabricloader": ">=0.12",
+      "fabric": "*",
+      "minecraft": "1.18.x",
+      "java": ">=17"
+    },
+    "suggests": {
+      "another-mod": "*"
+    }
+  }
+  
