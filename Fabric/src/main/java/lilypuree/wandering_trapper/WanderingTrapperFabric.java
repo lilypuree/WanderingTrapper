@@ -2,14 +2,19 @@ package lilypuree.wandering_trapper;
 
 import lilypuree.wandering_trapper.compat.BowWeapon;
 import lilypuree.wandering_trapper.compat.MusketWeapon;
+import lilypuree.wandering_trapper.core.RegistryNames;
 import lilypuree.wandering_trapper.core.RegistryObjects;
+import lilypuree.wandering_trapper.core.RegistrySuppliers;
 import lilypuree.wandering_trapper.entity.FurrierTrades;
 import lilypuree.wandering_trapper.entity.TrapperDogEntity;
 import lilypuree.wandering_trapper.entity.WanderingTrapperEntity;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
+import net.fabricmc.fabric.api.object.builder.v1.villager.VillagerProfessionBuilder;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.core.Registry;
+import net.minecraft.sounds.SoundEvents;
 
 public class WanderingTrapperFabric implements ModInitializer {
     @Override
