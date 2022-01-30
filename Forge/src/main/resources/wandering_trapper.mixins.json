@@ -5,9 +5,7 @@
   "refmap": "wandering_trapper.refmap.json",
   "minVersion": "0.8",
   "mixins": [
-    "PoiTypeInvoker",
-    "ServerLevelMixin",
-    "VillagerProfessionInvoker"
+    "ServerLevelMixin"
   ],
   "client": [
   ],

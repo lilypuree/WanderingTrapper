@@ -7,13 +7,8 @@ import lilypuree.wandering_trapper.entity.TrapperDogEntity;
 import lilypuree.wandering_trapper.entity.WanderingTrapperEntity;
 import lilypuree.wandering_trapper.item.PeltItem;
 import lilypuree.wandering_trapper.item.WanderingTrapperSpawnEgg;
-import lilypuree.wandering_trapper.mixins.PoiTypeInvoker;
-import lilypuree.wandering_trapper.mixins.VillagerProfessionInvoker;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.entity.ai.village.poi.PoiType;
-import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -31,9 +26,6 @@ public class RegistrySuppliers {
     public static Supplier<Item> PELT_ITEM = PeltItem::new;
 
     public static Supplier<Item> WANDERING_TRAPPER_SPAWN_EGG = WanderingTrapperSpawnEgg::new;
-
-    public static Supplier<PoiType> FURRIER_POI = () -> PoiTypeInvoker.invokeInit("furrier", getAllStates(RegistryObjects.PELT_SCRAPING_LOG), 1, 1);
-    public static Supplier<VillagerProfession> FURRIER = () -> VillagerProfessionInvoker.invokeRegister("furrier", RegistryObjects.FURRIER_POI, ImmutableSet.of(), ImmutableSet.of(), SoundEvents.VILLAGER_WORK_LEATHERWORKER);
     public static Supplier<EntityType<WanderingTrapperEntity>> WANDERING_TRAPPER = () -> EntityType.Builder.<WanderingTrapperEntity>of(WanderingTrapperEntity::new, MobCategory.CREATURE)
             .clientTrackingRange(80)
             .updateInterval(3)

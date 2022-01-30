@@ -3,9 +3,7 @@
   "package": "lilypuree.wandering_trapper.mixins",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "PoiTypeInvoker",
-    "ServerLevelMixin",
-    "VillagerProfessionInvoker"
+    "ServerLevelMixin"
   ],
   "client": [
 
