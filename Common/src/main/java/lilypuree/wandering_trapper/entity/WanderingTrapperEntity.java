@@ -91,6 +91,7 @@ public class WanderingTrapperEntity extends AbstractVillager implements RangedAt
                 .add(Attributes.MAX_HEALTH, 24.0D)
                 .add(Attributes.ARMOR, 1.2D);
         attribute.add(Attributes.ATTACK_DAMAGE, 2.0D);
+        attribute.add(Attributes.ATTACK_KNOCKBACK);
 
         return attribute;
     }
