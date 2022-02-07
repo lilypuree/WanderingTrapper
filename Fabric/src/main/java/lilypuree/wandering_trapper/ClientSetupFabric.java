@@ -16,6 +16,7 @@ public class ClientSetupFabric implements ClientModInitializer {
     public void onInitializeClient() {
 
         BlockRenderLayerMap.INSTANCE.putBlock(RegistryObjects.PELT_SCRAPING_LOG, RenderType.translucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegistryObjects.POLARBEAR_RUG, RenderType.cutout());
         ColorProviderRegistry.ITEM.register((stack, i) -> (i == 0) ? 0xD7D0CB : 0x862122, RegistryObjects.WANDERING_TRAPPER_SPAWN_EGG);
         EntityRendererRegistry.register(RegistryObjects.WANDERING_TRAPPER, WanderingTrapperRenderer::new);
         EntityRendererRegistry.register(RegistryObjects.TRAPPER_DOG, WolfRenderer::new);

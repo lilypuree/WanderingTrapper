@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "facing=east,part=head_right": { "model": "wandering_trapper:block/polarbear_rug_head_right" , "y" : 90},
+    "facing=south,part=head_right": { "model": "wandering_trapper:block/polarbear_rug_head_right", "y": 180 },
+    "facing=west,part=head_right": { "model": "wandering_trapper:block/polarbear_rug_head_right", "y": 270 },
+    "facing=north,part=head_right": { "model": "wandering_trapper:block/polarbear_rug_head_right", "y": 0 },
+    "facing=east,part=head_left": { "model": "wandering_trapper:block/polarbear_rug_head_left", "y" : 90 },
+    "facing=south,part=head_left": { "model": "wandering_trapper:block/polarbear_rug_head_left", "y": 180 },
+    "facing=west,part=head_left": { "model": "wandering_trapper:block/polarbear_rug_head_left", "y": 270 },
+    "facing=north,part=head_left": { "model": "wandering_trapper:block/polarbear_rug_head_left", "y": 0 },
+    "facing=east,part=mid_right": { "model": "wandering_trapper:block/polarbear_rug_mid_right" , "y" : 90},
+    "facing=south,part=mid_right": { "model": "wandering_trapper:block/polarbear_rug_mid_right", "y": 180 },
+    "facing=west,part=mid_right": { "model": "wandering_trapper:block/polarbear_rug_mid_right", "y": 270 },
+    "facing=north,part=mid_right": { "model": "wandering_trapper:block/polarbear_rug_mid_right", "y": 0 },
+    "facing=east,part=mid_left": { "model": "wandering_trapper:block/polarbear_rug_mid_left" , "y" : 90},
+    "facing=south,part=mid_left": { "model": "wandering_trapper:block/polarbear_rug_mid_left", "y": 180 },
+    "facing=west,part=mid_left": { "model": "wandering_trapper:block/polarbear_rug_mid_left", "y": 270 },
+    "facing=north,part=mid_left": { "model": "wandering_trapper:block/polarbear_rug_mid_left", "y": 0 },
+    "facing=east,part=tail_right": { "model": "wandering_trapper:block/polarbear_rug_tail_right" , "y" : 90},
+    "facing=south,part=tail_right": { "model": "wandering_trapper:block/polarbear_rug_tail_right", "y": 180 },
+    "facing=west,part=tail_right": { "model": "wandering_trapper:block/polarbear_rug_tail_right", "y": 270 },
+    "facing=north,part=tail_right": { "model": "wandering_trapper:block/polarbear_rug_tail_right", "y": 0 },
+    "facing=east,part=tail_left": { "model": "wandering_trapper:block/polarbear_rug_tail_left" , "y" : 90},
+    "facing=south,part=tail_left": { "model": "wandering_trapper:block/polarbear_rug_tail_left", "y": 180 },
+    "facing=west,part=tail_left": { "model": "wandering_trapper:block/polarbear_rug_tail_left", "y": 270 },
+    "facing=north,part=tail_left": { "model": "wandering_trapper:block/polarbear_rug_tail_left", "y": 0 }
+  }
+}

@@ -44,14 +44,16 @@ public class MusketWeapon implements IWeaponSelector {
     public Entity getProjectile(LivingEntity shooter, float distanceFactor) {
         BulletEntity bullet = new BulletEntity(shooter.level);
         bullet.setOwner(shooter);
-        bullet.setPos(shooter.getX(), shooter.getY() + shooter.getEyeHeight() - 0.1D, shooter.getZ());
+        bullet.setPos(shooter.getX(), shooter.getY() + shooter.getEyeHeight(), shooter.getZ());
         return bullet;
     }
 
     @Override
     public Entity shoot(LivingEntity shooter, Entity projectile, double dirX, double dirY, double dirZ, int difficulty) {
         if (projectile instanceof BulletEntity) {
-            ((GunItem)Items.MUSKET).fire(shooter, new Vec3(dirX, dirY, dirZ));
+            Vec3 dir = new Vec3(dirX, dirY, dirZ);
+            dir = dir.normalize().scale(1.1D);
+            ((GunItem) Items.MUSKET).fire(shooter, dir);
         }
         return projectile;
     }

@@ -14,12 +14,13 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = Constants.MOD_ID, value = Dist.CLIENT)
-public class ClientSetup {
+public class ClientSetupForge {
 
     @SubscribeEvent
     public static void init(FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
             ItemBlockRenderTypes.setRenderLayer(RegistryObjects.PELT_SCRAPING_LOG, RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(RegistryObjects.POLARBEAR_RUG, RenderType.cutout());
         });
     }
 

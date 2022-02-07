@@ -253,7 +253,7 @@ public class WanderingTrapperEntity extends AbstractVillager implements RangedAt
 //        ItemStack ammo = this.findAmmo(this.getHeldItem(ProjectileHelper.getHandWith(this, weaponSelector.getWeapon())));
         Entity projectileEntity = weaponSelector.getProjectile(this, distanceFactor);
         double d0 = target.getX() - this.getX();
-        double d1 = target.getBoundingBox().minY + (double) (target.getBbHeight() * 0.33333f) - projectileEntity.getY();
+        double d1 = target.getBoundingBox().minY + (double) (target.getBbHeight() * 0.7f) - projectileEntity.getY();
         double d2 = target.getZ() - this.getZ();
         weaponSelector.shoot(this, projectileEntity, d0, d1, d2, this.level.getDifficulty().getId());
         this.playSound(weaponSelector.getShootSound(), 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));

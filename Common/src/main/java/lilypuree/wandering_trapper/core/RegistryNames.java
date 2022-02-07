@@ -12,6 +12,7 @@ public class RegistryNames {
     public static ResourceLocation FOX_PELT = create("fox_pelt");
     public static ResourceLocation SNOW_FOX_PELT = create("snow_fox_pelt");
     public static ResourceLocation POLARBEAR_PELT = create("polarbear_pelt");
+    public static ResourceLocation POLARBEAR_RUG = create("polarbear_rug");
     public static ResourceLocation WANDERING_TRAPPER_SPAWN_EGG = create("wandering_trapper_spawn_egg");
 
     public static ResourceLocation WANDERING_TRAPPER = create("wandering_trapper");
