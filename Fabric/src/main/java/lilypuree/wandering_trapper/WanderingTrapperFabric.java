@@ -1,7 +1,6 @@
 package lilypuree.wandering_trapper;
 
 import lilypuree.wandering_trapper.compat.BowWeapon;
-import lilypuree.wandering_trapper.compat.MusketWeapon;
 import lilypuree.wandering_trapper.core.RegistryHelper;
 import lilypuree.wandering_trapper.core.RegistryNames;
 import lilypuree.wandering_trapper.core.RegistryObjects;
@@ -44,7 +43,7 @@ public class WanderingTrapperFabric implements ModInitializer {
     public static void setTrapperWeapon() {
 
         if (FabricLoader.getInstance().isModLoaded("musketmod")) {
-            WanderingTrapperEntity.weaponSelector = new MusketWeapon();
+//            WanderingTrapperEntity.weaponSelector = new MusketWeapon();
         } else {
             WanderingTrapperEntity.weaponSelector = new BowWeapon();
         }

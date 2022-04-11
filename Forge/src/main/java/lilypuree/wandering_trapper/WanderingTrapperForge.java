@@ -1,7 +1,6 @@
 package lilypuree.wandering_trapper;
 
 import lilypuree.wandering_trapper.compat.BowWeapon;
-import lilypuree.wandering_trapper.compat.MusketWeapon;
 import lilypuree.wandering_trapper.core.RegistryHelper;
 import lilypuree.wandering_trapper.core.RegistryObjects;
 import lilypuree.wandering_trapper.entity.WanderingTrapperEntity;
@@ -9,7 +8,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModList;
@@ -37,7 +35,7 @@ public class WanderingTrapperForge {
     public static void setTrapperWeapon(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             if (ModList.get().isLoaded("musketmod")) {
-                WanderingTrapperEntity.weaponSelector = new MusketWeapon();
+//                WanderingTrapperEntity.weaponSelector = new MusketWeapon();
             } else {
                 WanderingTrapperEntity.weaponSelector = new BowWeapon();
             }

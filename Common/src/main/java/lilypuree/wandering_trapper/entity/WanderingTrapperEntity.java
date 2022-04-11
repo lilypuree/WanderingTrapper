@@ -313,7 +313,7 @@ public class WanderingTrapperEntity extends AbstractVillager implements RangedAt
         }
 
         private boolean isWithinDistance(BlockPos pos, double distance) {
-            return !pos.closerThan(this.trapperEntity.position(), distance);
+            return !pos.closerThan(this.trapperEntity.blockPosition(), distance);
         }
     }
 }

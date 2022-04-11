@@ -1,29 +1,30 @@
 plugins {
-    id 'fabric-loom' version '0.10-SNAPSHOT'
+    id 'fabric-loom'
     id 'maven-publish'
     id 'idea'
 }
+
+archivesBaseName = "${mod_name}-fabric-${minecraft_version}"
+
 repositories {
     maven {
         name = 'ParchmentMC'
         url = 'https://maven.parchmentmc.org'
     }
     maven { url = "https://www.cursemaven.com" }
-
 }
 
-archivesBaseName = "${mod_name}-fabric-${minecraft_version}"
 
 dependencies {
     minecraft "com.mojang:minecraft:${minecraft_version}"
     mappings loom.layered() {
         officialMojangMappings()
-        parchment("org.parchmentmc.data:parchment-1.18.1:2021.12.19")
+        parchment("org.parchmentmc.data:parchment-${minecraft_version}:${parchment_version}")
     }
     modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
     implementation project(":Common")
-    modImplementation  "curse.maven:musketmod-354562:3549811"
+//    modImplementation  "curse.maven:musketmod-354562:${musket_fabric_fileid}"
 
 }
 
@@ -64,18 +65,3 @@ jar {
     }
 }
 
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            artifact(remapJar) {
-                builtBy remapJar
-            }
-            artifact(sourcesJar) {
-                builtBy remapSourcesJar
-            }
-        }
-    }
-
-    repositories {
-    }
-}

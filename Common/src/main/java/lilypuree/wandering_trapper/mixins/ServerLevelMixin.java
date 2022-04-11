@@ -2,6 +2,7 @@ package lilypuree.wandering_trapper.mixins;
 
 import com.google.common.collect.ImmutableList;
 import lilypuree.wandering_trapper.server.WanderingTrapperSpawner;
+import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
@@ -34,12 +35,13 @@ public abstract class ServerLevelMixin extends Level {
     @Mutable
     private List<CustomSpawner> customSpawners;
 
-    protected ServerLevelMixin(WritableLevelData $$0, ResourceKey<Level> $$1, DimensionType $$2, Supplier<ProfilerFiller> $$3, boolean $$4, boolean $$5, long $$6) {
+    protected ServerLevelMixin(WritableLevelData $$0, ResourceKey<Level> $$1, Holder<DimensionType> $$2, Supplier<ProfilerFiller> $$3, boolean $$4, boolean $$5, long $$6) {
         super($$0, $$1, $$2, $$3, $$4, $$5, $$6);
     }
 
+
     @Inject(method = "<init>", at = @At("RETURN"))
-    private void onInit(MinecraftServer server, Executor executor, LevelStorageSource.LevelStorageAccess storage, ServerLevelData levelData, ResourceKey<Level> levelKey, DimensionType dimensionType, ChunkProgressListener $$6, ChunkGenerator chunkGenerator,
+    private void onInit(MinecraftServer server, Executor executor, LevelStorageSource.LevelStorageAccess storage, ServerLevelData levelData, ResourceKey<Level> levelKey, Holder<DimensionType> dimensionType, ChunkProgressListener $$6, ChunkGenerator chunkGenerator,
                         boolean isDebug, long seed, List<CustomSpawner> customSpawners, boolean tickTime, CallbackInfo ci) {
         if (levelKey.equals(Level.OVERWORLD)) {
             boolean trapperSpawnerEmpty = customSpawners.stream().filter(spawner -> spawner instanceof WanderingTrapperSpawner).findAny().isEmpty();

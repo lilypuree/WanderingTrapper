@@ -11,17 +11,29 @@ buildscript {
         classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-SNAPSHOT'
     }
 }
-apply plugin: 'java'
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'org.parchmentmc.librarian.forgegradle'
 apply plugin: 'org.spongepowered.mixin'
-apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
 archivesBaseName = "${mod_name}-forge-${minecraft_version}"
 
-mixin {
-    add sourceSets.main, "wandering_trapper.refmap.json"
+sourceSets.main.resources.srcDir 'src/generated/resources'
+
+repositories {
+    maven {
+        url "https://cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
+}
+
+dependencies {
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+    compileOnly project(":Common")
+//    implementation fg.deobf("curse.maven:musketmod-354562:${musket_forge_fileid}")
 }
 
 
@@ -40,7 +52,6 @@ minecraft {
             workingDirectory project.file('run')
             ideaModule "${rootProject.name}.${project.name}.main"
             taskName 'Client'
-            arg "--mixin=wandering_trapper.mixins.json"
 
             mods {
                 modClientRun {
@@ -54,7 +65,6 @@ minecraft {
             workingDirectory project.file('run')
             ideaModule "${rootProject.name}.${project.name}.main"
             taskName 'Server'
-            arg "--mixin=wandering_trapper.mixins.json"
 
             mods {
                 modServerRun {
@@ -79,19 +89,11 @@ minecraft {
     }
 }
 
-sourceSets.main.resources.srcDir 'src/generated/resources'
-
-repositories {
-    maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
-    maven { url = "https://www.cursemaven.com" }
+mixin {
+    add sourceSets.main, "${mod_id}.refmap.json"
+    config "${mod_id}.mixins.json"
 }
-dependencies {
-    annotationProcessor 'org.spongepowered:mixin:0.8.4-SNAPSHOT:processor'
-    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
-    compileOnly project(":Common")
 
-    implementation fg.deobf("curse.maven:musketmod-354562:3549812")
-}
 
 tasks.withType(JavaCompile) {
     source(project(":Common").sourceSets.main.allSource)
@@ -100,7 +102,6 @@ tasks.withType(JavaCompile) {
 processResources {
     from project(":Common").sourceSets.main.resources
 }
-
 
 jar.finalizedBy('reobfJar')
 

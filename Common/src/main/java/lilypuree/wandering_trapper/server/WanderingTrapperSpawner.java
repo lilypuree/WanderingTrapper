@@ -88,7 +88,7 @@ public class WanderingTrapperSpawner implements CustomSpawner {
             BlockPos targetPos = optional.orElse(playerPos);
             BlockPos spawnPos = this.findSpawnPositionNear(world, targetPos, 48);
             if (spawnPos != null && hasEnoughSpace(world, spawnPos)) {
-                if (world.getBiome(spawnPos).getBaseTemperature() > 0) {
+                if (world.getBiome(spawnPos).value().getBaseTemperature() > 0) {
                     return false;
                 }
 
