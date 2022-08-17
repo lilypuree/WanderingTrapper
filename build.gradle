@@ -1,6 +1,7 @@
 plugins {
-    id 'fabric-loom' version '0.10-SNAPSHOT' apply false
+    id 'fabric-loom' version '0.12-SNAPSHOT' apply false
     id "com.matthewprenger.cursegradle" version "$cursegradle_version" apply false
+    id 'com.matyrobbrt.mc.registrationutils' version "$regVersion"
 }
 
 subprojects {
@@ -75,5 +76,14 @@ subprojects {
                 forgeGradleIntegration = isForge
             }
         }
+    }
+}
+
+registrationUtils {
+    group "${mod_author}.${mod_id}.registration"
+    projects {
+        Fabric { type 'fabric' } // The fabric project
+        Forge { type 'forge' } // The forge project
+        Common { type 'common' } // The common project
     }
 }

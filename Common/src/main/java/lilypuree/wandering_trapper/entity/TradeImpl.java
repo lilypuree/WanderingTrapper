@@ -1,11 +1,13 @@
 package lilypuree.wandering_trapper.entity;
 
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.ItemLike;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
 
@@ -35,8 +37,9 @@ public class TradeImpl implements VillagerTrades.ItemListing {
         this(new ItemStack(Items.EMERALD, emeralds), new ItemStack(price2, price2Count), new ItemStack(forSale, saleCount), maxTrades, xp, priceMult);
     }
 
+    @Nullable
     @Override
-    public MerchantOffer getOffer(Entity var1, Random var2) {
+    public MerchantOffer getOffer(Entity entity, RandomSource randomSource) {
         return new MerchantOffer(price, price2, forSale, maxTrades, xp, priceMult);
     }
 }

@@ -52,7 +52,7 @@ public class WanderingTrapperEntity extends AbstractVillager implements RangedAt
     public static IWeaponSelector weaponSelector;
 
     public WanderingTrapperEntity(Level worldIn) {
-        super(RegistryObjects.WANDERING_TRAPPER, worldIn);
+        super(RegistryObjects.WANDERING_TRAPPER.get(), worldIn);
     }
 
     public WanderingTrapperEntity(EntityType<? extends AbstractVillager> type, Level world) {
@@ -252,10 +252,7 @@ public class WanderingTrapperEntity extends AbstractVillager implements RangedAt
     public void performRangedAttack(LivingEntity target, float distanceFactor) {
 //        ItemStack ammo = this.findAmmo(this.getHeldItem(ProjectileHelper.getHandWith(this, weaponSelector.getWeapon())));
         Entity projectileEntity = weaponSelector.getProjectile(this, distanceFactor);
-        double d0 = target.getX() - this.getX();
-        double d1 = target.getBoundingBox().minY + (double) (target.getBbHeight() * 0.7f) - projectileEntity.getY();
-        double d2 = target.getZ() - this.getZ();
-        weaponSelector.shoot(this, projectileEntity, d0, d1, d2, this.level.getDifficulty().getId());
+        weaponSelector.shoot(this, projectileEntity, target, this.level.getDifficulty().getId());
         this.playSound(weaponSelector.getShootSound(), 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
     }
 

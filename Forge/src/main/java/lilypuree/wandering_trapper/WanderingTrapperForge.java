@@ -1,58 +1,44 @@
 package lilypuree.wandering_trapper;
 
 import lilypuree.wandering_trapper.compat.BowWeapon;
-import lilypuree.wandering_trapper.core.RegistryHelper;
 import lilypuree.wandering_trapper.core.RegistryObjects;
 import lilypuree.wandering_trapper.entity.WanderingTrapperEntity;
+import lilypuree.wandering_trapper.mixins.POITypesInvoker;
+import lilypuree.wandering_trapper.platform.ForgePlatformHelper;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.IForgeRegistry;
-import net.minecraftforge.registries.IForgeRegistryEntry;
 
 @Mod(Constants.MOD_ID)
 public class WanderingTrapperForge {
 
     public WanderingTrapperForge() {
-
+        RegistryObjects.init();
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
+        ForgePlatformHelper.POI_TYPES.register(modBus);
         modBus.addListener(CommonSetup::entityAttributes);
-        modBus.addListener(WanderingTrapperForge::setTrapperWeapon);
-
-        modBus.addGenericListener(Block.class, (RegistryEvent.Register<Block> e) -> RegistryObjects.registerBlocks(new RegistryHelperForge<>(e.getRegistry())));
-        modBus.addGenericListener(Item.class, (RegistryEvent.Register<Item> e) -> RegistryObjects.registerItems(new RegistryHelperForge<>(e.getRegistry())));
-        modBus.addGenericListener(EntityType.class, (RegistryEvent.Register<EntityType<?>> e) -> RegistryObjects.registerEntities(new RegistryHelperForge<>(e.getRegistry())));
+        modBus.addListener(WanderingTrapperForge::setup);
 
     }
 
-    public static void setTrapperWeapon(FMLCommonSetupEvent event) {
+    public static void setup(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             if (ModList.get().isLoaded("musketmod")) {
 //                WanderingTrapperEntity.weaponSelector = new MusketWeapon();
             } else {
                 WanderingTrapperEntity.weaponSelector = new BowWeapon();
             }
+            registerBlockStates();
         });
+
     }
 
-    public static class RegistryHelperForge<T extends IForgeRegistryEntry<T>> implements RegistryHelper<T> {
-        IForgeRegistry<T> registry;
-
-        public RegistryHelperForge(IForgeRegistry<T> registry) {
-            this.registry = registry;
-        }
-
-        @Override
-        public void register(T entry, ResourceLocation name) {
-            registry.register(entry.setRegistryName(name));
-        }
+    public static void registerBlockStates() {
+        POITypesInvoker.invokeGetBlockStates(RegistryObjects.PELT_SCRAPING_LOG.get()).forEach((state) -> POITypesInvoker.getTypeByState().put(state, Registry.POINT_OF_INTEREST_TYPE.getHolder(ResourceKey.create(Registry.POINT_OF_INTEREST_TYPE_REGISTRY, new ResourceLocation(Constants.MOD_ID, "furrier"))).get()));
     }
-
 }

@@ -1,14 +1,11 @@
 package lilypuree.wandering_trapper;
 
-import coda.ambientadditions.AmbientAdditions;
-import coda.ambientadditions.common.init.AAEntities;
 import lilypuree.wandering_trapper.capability.HuntingExperienceProvider;
 import lilypuree.wandering_trapper.capability.IHuntingExperience;
 import lilypuree.wandering_trapper.core.RegistryObjects;
 import lilypuree.wandering_trapper.entity.FurrierTrades;
 import lilypuree.wandering_trapper.entity.TrapperDogEntity;
 import lilypuree.wandering_trapper.entity.WanderingTrapperEntity;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -35,8 +32,8 @@ public class CommonSetup {
     });
 
     public static void entityAttributes(EntityAttributeCreationEvent event) {
-        event.put(RegistryObjects.WANDERING_TRAPPER, WanderingTrapperEntity.createAttributes().build());
-        event.put(RegistryObjects.TRAPPER_DOG, TrapperDogEntity.createAttributes().build());
+        event.put(RegistryObjects.WANDERING_TRAPPER.get(), WanderingTrapperEntity.createAttributes().build());
+        event.put(RegistryObjects.TRAPPER_DOG.get(), TrapperDogEntity.createAttributes().build());
     }
 
     @SubscribeEvent
@@ -51,7 +48,7 @@ public class CommonSetup {
         if (!event.isWasDeath()) return;
         LazyOptional<IHuntingExperience> oldHuntingExperience = event.getOriginal().getCapability(HUNTING_EXP_CAP);
         oldHuntingExperience.ifPresent(oldXP -> {
-            LazyOptional<IHuntingExperience> newhuntingExperience = event.getPlayer().getCapability(HUNTING_EXP_CAP);
+            LazyOptional<IHuntingExperience> newhuntingExperience = event.getEntity().getCapability(HUNTING_EXP_CAP);
             newhuntingExperience.ifPresent(newXP -> newXP.copyFrom(oldXP));
         });
     }
@@ -60,7 +57,7 @@ public class CommonSetup {
     @SubscribeEvent
     public static void onSetVillagerTrades(VillagerTradesEvent event) {
         FurrierTrades.init();
-        if (event.getType() == RegistryObjects.FURRIER) {
+        if (event.getType() == RegistryObjects.FURRIER.get()) {
             event.getTrades().put(1, FurrierTrades.noviceTrades);
             event.getTrades().put(2, FurrierTrades.apprenticeTrades);
             event.getTrades().put(3, FurrierTrades.journeymanTrades);
@@ -70,22 +67,23 @@ public class CommonSetup {
 
     @SubscribeEvent(priority = EventPriority.HIGH, receiveCanceled = true)
     public static void onLivingDrop(LivingDropsEvent event) {
-        LivingEntity entity = event.getEntityLiving();
+        LivingEntity entity = event.getEntity();
         Entity killer = event.getSource().getEntity();
 
         if (!(killer instanceof Player)) return;
 
         if (entity instanceof PolarBear) {
-            dropItem(killer, entity, 6, new ItemStack(RegistryObjects.POLARBEAR_PELT));
+            dropItem(killer, entity, 6, new ItemStack(RegistryObjects.POLARBEAR_PELT.get()));
         } else if (entity instanceof Fox fox) {
             if (fox.getFoxType() == Fox.Type.RED) {
-                dropItem(killer, entity, 2, new ItemStack(RegistryObjects.FOX_PELT));
+                dropItem(killer, entity, 2, new ItemStack(RegistryObjects.FOX_PELT.get()));
             } else {
-                dropItem(killer, entity, 4, new ItemStack(RegistryObjects.SNOW_FOX_PELT));
+                dropItem(killer, entity, 4, new ItemStack(RegistryObjects.SNOW_FOX_PELT.get()));
             }
-        } else if (entity.getType() == AAEntities.PINE_MARTEN.get()){
-            dropItem(killer, entity, 2, new ItemStack(RegistryObjects.MARTEN_PELT));
         }
+//        else if (entity.getType() == AAEntities.PINE_MARTEN.get()){
+//            dropItem(killer, entity, 2, new ItemStack(RegistryObjects.MARTEN_PELT));
+//        }
     }
 
     private static void dropItem(Entity player, Entity killed, int huntingExperience, ItemStack stack) {

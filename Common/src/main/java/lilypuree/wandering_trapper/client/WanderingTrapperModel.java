@@ -63,17 +63,6 @@ public class WanderingTrapperModel<T extends WanderingTrapperEntity> extends Hie
         return LayerDefinition.create(builder, 64, 64);
     }
 
-
-//    @Override
-//    public void renderToBuffer(PoseStack matrixStack, VertexConsumer iVertexBuilder, int i, int i1, float v, float v1, float v2, float v3) {
-//        this.head.render(matrixStack, iVertexBuilder, i, i1, v, v1, v2, v3);
-//        this.body.render(matrixStack, iVertexBuilder, i, i1, v, v1, v2, v3);
-//        this.handR.render(matrixStack, iVertexBuilder, i, i1, v, v1, v2, v3);
-//        this.handL.render(matrixStack, iVertexBuilder, i, i1, v, v1, v2, v3);
-//        this.legL.render(matrixStack, iVertexBuilder, i, i1, v, v1, v2, v3);
-//        this.legR.render(matrixStack, iVertexBuilder, i, i1, v, v1, v2, v3);
-//    }
-
     @Override
     public ModelPart root() {
         return root;
@@ -151,7 +140,8 @@ public class WanderingTrapperModel<T extends WanderingTrapperEntity> extends Hie
     }
 
 
-    public ModelPart getArm(HumanoidArm handSide) {
+
+    private ModelPart getArm(HumanoidArm handSide) {
         return handSide == HumanoidArm.LEFT ? this.handL : this.handR;
     }
 

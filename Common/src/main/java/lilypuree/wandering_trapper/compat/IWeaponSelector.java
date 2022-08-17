@@ -21,7 +21,7 @@ public interface IWeaponSelector {
 
     public Entity getProjectile(LivingEntity shooter, float distanceFactor);
 
-    public Entity shoot(LivingEntity shooter, Entity projectile, double dirX, double dirY, double dirZ, int difficulty);
+    public Entity shoot(LivingEntity shooter, Entity projectile, LivingEntity target, int difficulty);
 
     public SoundEvent getShootSound();
 

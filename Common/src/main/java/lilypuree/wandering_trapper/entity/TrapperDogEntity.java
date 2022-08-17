@@ -26,7 +26,7 @@ public class TrapperDogEntity extends Wolf {
     }
 
     protected Wolf createChild() {
-        return RegistryObjects.TRAPPER_DOG.create(this.level);
+        return RegistryObjects.TRAPPER_DOG.get().create(this.level);
     }
 
     @Override

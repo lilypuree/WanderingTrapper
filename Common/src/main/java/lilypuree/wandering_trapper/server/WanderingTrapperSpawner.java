@@ -12,6 +12,7 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.ai.village.poi.PoiManager;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
+import net.minecraft.world.entity.ai.village.poi.PoiTypes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -82,7 +83,7 @@ public class WanderingTrapperSpawner implements CustomSpawner {
             BlockPos playerPos = playerentity.blockPosition();
             int range = 48;
             PoiManager poiManager = world.getPoiManager();
-            Optional<BlockPos> optional = poiManager.find(PoiType.MEETING.getPredicate(), (k) -> {
+            Optional<BlockPos> optional = poiManager.find(poi -> poi.is(PoiTypes.MEETING), (k) -> {
                 return true;
             }, playerPos, range, PoiManager.Occupancy.ANY);
             BlockPos targetPos = optional.orElse(playerPos);
@@ -92,7 +93,7 @@ public class WanderingTrapperSpawner implements CustomSpawner {
                     return false;
                 }
 
-                WanderingTrapperEntity trapper = RegistryObjects.WANDERING_TRAPPER.spawn(world, (CompoundTag) null, (Component) null, (Player) null, spawnPos, MobSpawnType.EVENT, false, false);
+                WanderingTrapperEntity trapper = RegistryObjects.WANDERING_TRAPPER.get().spawn(world, (CompoundTag) null, (Component) null, (Player) null, spawnPos, MobSpawnType.EVENT, false, false);
                 if (trapper != null) {
                     this.spawnDogs(trapper, 4);
                     trapper.setDespawnDelay(48000); //48000
@@ -109,7 +110,7 @@ public class WanderingTrapperSpawner implements CustomSpawner {
     private void spawnDogs(WanderingTrapperEntity trapper, int radius) {
         BlockPos blockpos = this.findSpawnPositionNear(trapper.getLevel(), new BlockPos(trapper.blockPosition()), radius);
         if (blockpos != null) {
-            TrapperDogEntity trapperDogEntity = RegistryObjects.TRAPPER_DOG.spawn((ServerLevel) trapper.getLevel(), (CompoundTag) null, (Component) null, (Player) null, blockpos, MobSpawnType.EVENT, false, false);
+            TrapperDogEntity trapperDogEntity = RegistryObjects.TRAPPER_DOG.get().spawn((ServerLevel) trapper.getLevel(), (CompoundTag) null, (Component) null, (Player) null, blockpos, MobSpawnType.EVENT, false, false);
             if (trapperDogEntity != null) {
                 trapperDogEntity.setLeashedTo(trapper, true);
                 trapperDogEntity.setOwnerUUID(trapper.getUUID());
@@ -125,7 +126,7 @@ public class WanderingTrapperSpawner implements CustomSpawner {
             int k = pos.getZ() + this.random.nextInt(radius * 2) - radius;
             int l = world.getHeight(Heightmap.Types.WORLD_SURFACE, j, k);
             BlockPos temp = new BlockPos(j, l, k);
-            if (NaturalSpawner.isSpawnPositionOk(SpawnPlacements.Type.NO_RESTRICTIONS, world, temp, RegistryObjects.WANDERING_TRAPPER)) {
+            if (NaturalSpawner.isSpawnPositionOk(SpawnPlacements.Type.NO_RESTRICTIONS, world, temp, RegistryObjects.WANDERING_TRAPPER.get())) {
                 blockpos = temp;
                 break;
             }

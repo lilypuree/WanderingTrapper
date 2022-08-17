@@ -48,13 +48,15 @@ public class BowWeapon implements IWeaponSelector {
     }
 
     @Override
-    public Entity shoot(LivingEntity shoother,
-                        Entity projectile, double dirX, double dirY, double dirZ, int difficulty) {
-        if (projectile instanceof AbstractArrow) {
+    public Entity shoot(LivingEntity shooter, Entity projectile, LivingEntity target, int difficulty) {
+        if (projectile instanceof AbstractArrow arrow) {
+            double dirX = target.getX() - shooter.getX();
+            double dirY = target.getY(0.3333333333333333) - projectile.getY();
+            double dirZ = target.getZ() - shooter.getZ();
             double distance = (double) Mth.sqrt((float) (dirX * dirX + dirZ * dirZ));
-            ((AbstractArrow) projectile).shoot(dirX, dirY + distance * 0.2, dirZ, 1.6F, (float) (14 - difficulty * 4));
+            arrow.shoot(dirX, dirY + distance * 0.20000000298023224, dirZ, 1.6F, (float) (14 - difficulty * 4));
         }
-        shoother.level.addFreshEntity(projectile);
+        shooter.level.addFreshEntity(projectile);
         return projectile;
     }
 

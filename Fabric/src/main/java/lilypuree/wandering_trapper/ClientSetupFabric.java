@@ -14,12 +14,11 @@ import net.minecraft.client.renderer.entity.WolfRenderer;
 public class ClientSetupFabric implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
-
-        BlockRenderLayerMap.INSTANCE.putBlock(RegistryObjects.PELT_SCRAPING_LOG, RenderType.translucent());
-        BlockRenderLayerMap.INSTANCE.putBlock(RegistryObjects.POLARBEAR_RUG, RenderType.cutout());
-        ColorProviderRegistry.ITEM.register((stack, i) -> (i == 0) ? 0xD7D0CB : 0x862122, RegistryObjects.WANDERING_TRAPPER_SPAWN_EGG);
-        EntityRendererRegistry.register(RegistryObjects.WANDERING_TRAPPER, WanderingTrapperRenderer::new);
-        EntityRendererRegistry.register(RegistryObjects.TRAPPER_DOG, WolfRenderer::new);
+        BlockRenderLayerMap.INSTANCE.putBlock(RegistryObjects.PELT_SCRAPING_LOG.get(), RenderType.translucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(RegistryObjects.POLARBEAR_RUG.get(), RenderType.cutout());
+        ColorProviderRegistry.ITEM.register((stack, i) -> (i == 0) ? 0xD7D0CB : 0x862122, RegistryObjects.WANDERING_TRAPPER_SPAWN_EGG.get());
+        EntityRendererRegistry.register(RegistryObjects.WANDERING_TRAPPER.get(), WanderingTrapperRenderer::new);
+        EntityRendererRegistry.register(RegistryObjects.TRAPPER_DOG.get(), WolfRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(WanderingTrapperModel.TRAPPER_LAYER, WanderingTrapperModel::createBodyLayer);
     }
 }

@@ -12,6 +12,7 @@ import net.minecraft.world.level.CustomSpawner;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.dimension.DimensionType;
+import net.minecraft.world.level.dimension.LevelStem;
 import net.minecraft.world.level.storage.LevelStorageSource;
 import net.minecraft.world.level.storage.ServerLevelData;
 import net.minecraft.world.level.storage.WritableLevelData;
@@ -35,13 +36,12 @@ public abstract class ServerLevelMixin extends Level {
     @Mutable
     private List<CustomSpawner> customSpawners;
 
-    protected ServerLevelMixin(WritableLevelData $$0, ResourceKey<Level> $$1, Holder<DimensionType> $$2, Supplier<ProfilerFiller> $$3, boolean $$4, boolean $$5, long $$6) {
-        super($$0, $$1, $$2, $$3, $$4, $$5, $$6);
+    protected ServerLevelMixin(WritableLevelData $$0, ResourceKey<Level> $$1, Holder<DimensionType> $$2, Supplier<ProfilerFiller> $$3, boolean $$4, boolean $$5, long $$6, int $$7) {
+        super($$0, $$1, $$2, $$3, $$4, $$5, $$6, $$7);
     }
 
-
     @Inject(method = "<init>", at = @At("RETURN"))
-    private void onInit(MinecraftServer server, Executor executor, LevelStorageSource.LevelStorageAccess storage, ServerLevelData levelData, ResourceKey<Level> levelKey, Holder<DimensionType> dimensionType, ChunkProgressListener $$6, ChunkGenerator chunkGenerator,
+    private void onInit(MinecraftServer server, Executor executor, LevelStorageSource.LevelStorageAccess storage, ServerLevelData levelData, ResourceKey<Level> levelKey, LevelStem levelStem, ChunkProgressListener $$6,
                         boolean isDebug, long seed, List<CustomSpawner> customSpawners, boolean tickTime, CallbackInfo ci) {
         if (levelKey.equals(Level.OVERWORLD)) {
             boolean trapperSpawnerEmpty = customSpawners.stream().filter(spawner -> spawner instanceof WanderingTrapperSpawner).findAny().isEmpty();
@@ -50,6 +50,7 @@ public abstract class ServerLevelMixin extends Level {
             }
         }
     }
+
 
     @Accessor(value = "customSpawners")
     public abstract void setCustomSpawners(List<CustomSpawner> customSpawners);

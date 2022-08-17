@@ -29,7 +29,7 @@ public class WanderingTrapperSpawnEgg extends Item {
     }
 
     /**
-     * Called when this item is used when targetting a Block
+     * Called when this item is used when targeting a Block
      */
     @Override
     public InteractionResult useOn(UseOnContext context) {
@@ -46,7 +46,7 @@ public class WanderingTrapperSpawnEgg extends Item {
                 BlockEntity tileentity = world.getBlockEntity(blockpos);
                 if (tileentity instanceof SpawnerBlockEntity) {
                     BaseSpawner abstractspawner = ((SpawnerBlockEntity) tileentity).getSpawner();
-                    abstractspawner.setEntityId(RegistryObjects.WANDERING_TRAPPER);
+                    abstractspawner.setEntityId(RegistryObjects.WANDERING_TRAPPER.get());
                     tileentity.setChanged();
                     world.sendBlockUpdated(blockpos, blockstate, blockstate, 3);
                     itemstack.shrink(1);
@@ -61,7 +61,7 @@ public class WanderingTrapperSpawnEgg extends Item {
                 blockpos1 = blockpos.relative(direction);
             }
 
-            if (RegistryObjects.WANDERING_TRAPPER.spawn((ServerLevel) world, itemstack, context.getPlayer(), blockpos1, MobSpawnType.SPAWN_EGG, true, !Objects.equals(blockpos, blockpos1) && direction == Direction.UP) != null) {
+            if (RegistryObjects.WANDERING_TRAPPER.get().spawn((ServerLevel) world, itemstack, context.getPlayer(), blockpos1, MobSpawnType.SPAWN_EGG, true, !Objects.equals(blockpos, blockpos1) && direction == Direction.UP) != null) {
                 itemstack.shrink(1);
             }
 

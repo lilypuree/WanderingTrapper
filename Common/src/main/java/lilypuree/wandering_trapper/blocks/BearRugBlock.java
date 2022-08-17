@@ -4,6 +4,7 @@ import lilypuree.wandering_trapper.core.RegistryObjects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -39,7 +40,7 @@ public class BearRugBlock extends HorizontalDirectionalBlock {
 
 
     @Override
-    public void tick(BlockState state, ServerLevel level, BlockPos pos, Random rand) {
+    public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource rand) {
         level.setBlock(pos, Blocks.AIR.defaultBlockState(), UPDATE_NEIGHBORS | UPDATE_CLIENTS | UPDATE_SUPPRESS_DROPS);
     }
 
@@ -90,7 +91,8 @@ public class BearRugBlock extends HorizontalDirectionalBlock {
             for (RugPart other : RugPart.values()) {
                 if (part == other) continue;
                 mutable.setWithOffset(origin, part.getOffsetTo(other, facing));
-                if (!level.getBlockState(mutable).canBeReplaced(context) || !canSupportRigidBlock(level, mutable.move(0, -1, 0))) continue label1;
+                if (!level.getBlockState(mutable).canBeReplaced(context) || !canSupportRigidBlock(level, mutable.move(0, -1, 0)))
+                    continue label1;
             }
             return part;
         }

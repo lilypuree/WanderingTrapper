@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import lilypuree.wandering_trapper.core.RegistryObjects;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.npc.VillagerTrades.ItemListing;
 import net.minecraft.world.item.Item;
@@ -17,21 +18,20 @@ import java.util.Random;
 
 public class TrapperTrades {
 
-    public static final Int2ObjectMap<ItemListing[]> trades = getAsIntMap(ImmutableMap.of(1,new ItemListing[]{
-            new ItemsForEmeraldsTrade(RegistryObjects.BEAVER_PELT, 18, 6, 5,30),
-            new ItemsForEmeraldsTrade(RegistryObjects.FOX_PELT, 18, 3, 3, 30),
-            new ItemsForEmeraldsTrade(RegistryObjects.SNOW_FOX_PELT, 18, 2, 3, 30),
-            new ItemsForEmeraldsTrade(RegistryObjects.MARTEN_PELT, 24, 10, 5, 30),
-            new ItemsForEmeraldsTrade(RegistryObjects.MINK_PELT, 32, 6, 5, 30),
-            new ItemsForEmeraldsTrade(RegistryObjects.POLARBEAR_PELT, 60, 3, 3, 30)
+    public static final Int2ObjectMap<ItemListing[]> trades = getAsIntMap(ImmutableMap.of(1, new ItemListing[]{
+            new ItemsForEmeraldsTrade(RegistryObjects.BEAVER_PELT.get(), 18, 6, 5, 30),
+            new ItemsForEmeraldsTrade(RegistryObjects.FOX_PELT.get(), 18, 3, 3, 30),
+            new ItemsForEmeraldsTrade(RegistryObjects.SNOW_FOX_PELT.get(), 18, 2, 3, 30),
+            new ItemsForEmeraldsTrade(RegistryObjects.MARTEN_PELT.get(), 24, 10, 5, 30),
+            new ItemsForEmeraldsTrade(RegistryObjects.MINK_PELT.get(), 32, 6, 5, 30),
+            new ItemsForEmeraldsTrade(RegistryObjects.POLARBEAR_PELT.get(), 60, 3, 3, 30)
     }, 2, new ItemListing[]{
-            new ItemsForItemsTrade(Items.CLOCK, 1, RegistryObjects.BEAVER_PELT, 4, 3, 30),
-            new ItemsForItemsTrade(Items.CLOCK, 1, RegistryObjects.FOX_PELT, 2, 3, 30),
-            new ItemsForItemsTrade(Items.LANTERN, 1, RegistryObjects.BEAVER_PELT, 4, 3, 30),
-            new ItemsForItemsTrade(Items.LANTERN, 1, RegistryObjects.FOX_PELT, 4, 3, 30),
+            new ItemsForItemsTrade(Items.CLOCK, 1, RegistryObjects.BEAVER_PELT.get(), 4, 3, 30),
+            new ItemsForItemsTrade(Items.CLOCK, 1, RegistryObjects.FOX_PELT.get(), 2, 3, 30),
+            new ItemsForItemsTrade(Items.LANTERN, 1, RegistryObjects.BEAVER_PELT.get(), 4, 3, 30),
+            new ItemsForItemsTrade(Items.LANTERN, 1, RegistryObjects.FOX_PELT.get(), 4, 3, 30),
             new ItemsForEmeraldsTrade(Items.RABBIT_FOOT, 1, 4, 5, 10),
     }));
-
 
 
     private static Int2ObjectMap<ItemListing[]> getAsIntMap(ImmutableMap<Integer, ItemListing[]> p_221238_0_) {
@@ -48,7 +48,7 @@ public class TrapperTrades {
 
 
         public ItemsForEmeraldsTrade(Item item, int emeraldCount, int itemCountIn, int giveEXPIn) {
-            this((ItemStack)(new ItemStack(item)), emeraldCount, itemCountIn, 12, giveEXPIn);
+            this((ItemStack) (new ItemStack(item)), emeraldCount, itemCountIn, 12, giveEXPIn);
         }
 
         public ItemsForEmeraldsTrade(Item item, int emeraldCount, int itemCountIn, int maxUsesIn, int givenEXPIn) {
@@ -68,12 +68,13 @@ public class TrapperTrades {
             this.priceMultiplier = priceMultiplierIn;
         }
 
-        public MerchantOffer getOffer(Entity p_221182_1_, Random p_221182_2_) {
+        @Override
+        public MerchantOffer getOffer(Entity p_221182_1_, RandomSource p_221182_2_) {
             return new MerchantOffer(new ItemStack(Items.EMERALD, this.emeraldCount), new ItemStack(this.item.getItem(), this.itemCount), this.maxUses, this.givenEXP, this.priceMultiplier);
         }
     }
 
-    static class ItemsForItemsTrade implements ItemListing{
+    static class ItemsForItemsTrade implements ItemListing {
         private final ItemStack buyingItem;
         private final int buyingItemCount;
         private final ItemStack sellingItem;
@@ -93,8 +94,9 @@ public class TrapperTrades {
             this.priceMultiplier = 0.05F;
         }
 
-        public MerchantOffer getOffer(Entity p_221182_1_, Random p_221182_2_) {
-            return new MerchantOffer( new ItemStack(this.buyingItem.getItem(), this.buyingItemCount),ItemStack.EMPTY, new ItemStack(this.sellingItem.getItem(), this.sellingItemCount), this.maxUses, this.xpValue, this.priceMultiplier);
+        @Override
+        public MerchantOffer getOffer(Entity p_221182_1_, RandomSource p_221182_2_) {
+            return new MerchantOffer(new ItemStack(this.buyingItem.getItem(), this.buyingItemCount), ItemStack.EMPTY, new ItemStack(this.sellingItem.getItem(), this.sellingItemCount), this.maxUses, this.xpValue, this.priceMultiplier);
         }
     }
 
@@ -123,7 +125,8 @@ public class TrapperTrades {
             this.priceMultiplier = 0.05F;
         }
 
-        public MerchantOffer getOffer(Entity p_221182_1_, Random p_221182_2_) {
+        @Override
+        public MerchantOffer getOffer(Entity p_221182_1_, RandomSource p_221182_2_) {
             return new MerchantOffer(new ItemStack(Items.EMERALD, this.emeraldCount), new ItemStack(this.buyingItem.getItem(), this.buyingItemCount), new ItemStack(this.sellingItem.getItem(), this.sellingItemCount), this.maxUses, this.xpValue, this.priceMultiplier);
         }
 

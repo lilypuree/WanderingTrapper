@@ -48,9 +48,13 @@
 //    }
 //
 //    @Override
-//    public Entity shoot(LivingEntity shooter, Entity projectile, double dirX, double dirY, double dirZ, int difficulty) {
+//    public Entity shoot(LivingEntity shooter, Entity projectile, LivingEntity target, int difficulty) {
 //        if (projectile instanceof BulletEntity) {
-//            Vec3 dir = new Vec3(dirX, dirY, dirZ);
+//            double d0 = target.getX() - shooter.getX();
+//            double d1 = target.getBoundingBox().minY + (double) (target.getBbHeight() * 0.7f) - projectile.getY();
+//            double d2 = target.getZ() - shooter.getZ();
+//
+//            Vec3 dir = new Vec3(d0, d1, d2);
 //            dir = dir.normalize().scale(1.1D);
 //            ((GunItem) Items.MUSKET).fire(shooter, dir);
 //        }

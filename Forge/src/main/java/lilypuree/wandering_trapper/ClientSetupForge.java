@@ -7,8 +7,8 @@ import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.WolfRenderer;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -19,8 +19,8 @@ public class ClientSetupForge {
     @SubscribeEvent
     public static void init(FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
-            ItemBlockRenderTypes.setRenderLayer(RegistryObjects.PELT_SCRAPING_LOG, RenderType.translucent());
-            ItemBlockRenderTypes.setRenderLayer(RegistryObjects.POLARBEAR_RUG, RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(RegistryObjects.PELT_SCRAPING_LOG.get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(RegistryObjects.POLARBEAR_RUG.get(), RenderType.cutout());
         });
     }
 
@@ -31,12 +31,12 @@ public class ClientSetupForge {
 
     @SubscribeEvent
     public static void onRegisterRendereres(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerEntityRenderer(RegistryObjects.WANDERING_TRAPPER, WanderingTrapperRenderer::new);
-        event.registerEntityRenderer(RegistryObjects.TRAPPER_DOG, WolfRenderer::new);
+        event.registerEntityRenderer(RegistryObjects.WANDERING_TRAPPER.get(), WanderingTrapperRenderer::new);
+        event.registerEntityRenderer(RegistryObjects.TRAPPER_DOG.get(), WolfRenderer::new);
     }
 
     @SubscribeEvent
-    public static void onItemColor(ColorHandlerEvent.Item event) {
-        event.getItemColors().register((stack, i) -> (i == 0) ? 0xD7D0CB : 0x862122, RegistryObjects.WANDERING_TRAPPER_SPAWN_EGG);
+    public static void onItemColor(RegisterColorHandlersEvent.Item event) {
+        event.register((stack, i) -> i == 0 ? 0xD7D0CB : 0x862122, RegistryObjects.WANDERING_TRAPPER_SPAWN_EGG.get());
     }
 }

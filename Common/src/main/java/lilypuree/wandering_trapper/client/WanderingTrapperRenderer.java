@@ -14,8 +14,8 @@ public class WanderingTrapperRenderer<T extends WanderingTrapperEntity> extends 
 
     public WanderingTrapperRenderer(EntityRendererProvider.Context context) {
         super(context, new WanderingTrapperModel<>(context.bakeLayer(WanderingTrapperModel.TRAPPER_LAYER)), 0.5F);
-        this.addLayer(new CustomHeadLayer<>(this, context.getModelSet()));
-        this.addLayer(new ItemInHandLayer<>(this));
+        this.addLayer(new CustomHeadLayer<>(this, context.getModelSet(), context.getItemInHandRenderer()));
+        this.addLayer(new ItemInHandLayer<>(this, context.getItemInHandRenderer()));
     }
 
     @Override
