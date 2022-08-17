@@ -1,7 +1,5 @@
 package lilypuree.wandering_trapper;
 
-import coda.ambientadditions.AmbientAdditions;
-import coda.ambientadditions.common.init.AAEntities;
 import lilypuree.wandering_trapper.capability.HuntingExperienceProvider;
 import lilypuree.wandering_trapper.capability.IHuntingExperience;
 import lilypuree.wandering_trapper.core.RegistryObjects;
@@ -83,8 +81,11 @@ public class CommonSetup {
             } else {
                 dropItem(killer, entity, 4, new ItemStack(RegistryObjects.SNOW_FOX_PELT));
             }
-        } else if (entity.getType() == AAEntities.PINE_MARTEN.get()){
-            dropItem(killer, entity, 2, new ItemStack(RegistryObjects.MARTEN_PELT));
+        } else {
+            ResourceLocation regName = entity.getType().getRegistryName();
+            if (regName != null && regName.getPath().equals("pine_marten")) {
+                dropItem(killer, entity, 2, new ItemStack(RegistryObjects.MARTEN_PELT));
+            }
         }
     }
 
