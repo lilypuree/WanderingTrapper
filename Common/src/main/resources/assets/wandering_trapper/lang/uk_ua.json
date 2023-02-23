@@ -1,0 +1,14 @@
+{
+  "entity.wandering_trapper.wandering_trapper": "Мандрівний мисливець",
+  "entity.wandering_trapper.trapper_dog": "Собака мандрівного мисливця",
+  "entity.minecraft.villager.wandering_trapper.furrier": "Кушнір",
+  "item.wandering_trapper.wandering_trapper_spawn_egg": "Яйце виклику мандрівного мисливця",
+  "item.wandering_trapper.beaver_pelt": "Шкура бобра",
+  "item.wandering_trapper.marten_pelt": "Шкура куниці",
+  "item.wandering_trapper.mink_pelt": "Шкура норки",
+  "item.wandering_trapper.fox_pelt": "Шкура лисиці",
+  "item.wandering_trapper.snow_fox_pelt": "Шкура білої лисиці",
+  "item.wandering_trapper.polarbear_pelt": "Шкура білого ведмедя",
+  "block.wandering_trapper.pelt_scraping_log": "Колода для свіжування",
+  "block.wandering_trapper.polarbear_rug": "Килимок з білого ведмедя"
+}
